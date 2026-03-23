@@ -63,3 +63,15 @@ var DAILY_SCHEDULE = {
     ]
   }
 };
+
+var TEMPLE_TIMINGS = {
+  // months 0-indexed: 0=Jan, 9=Oct, 3=Apr, 4=May, 8=Sep
+  winter: {label:'Oct – Apr', morning:'7:00 AM – 11:30 AM', evening:'3:30 PM – 8:00 PM', aarti:'6:00 PM'},
+  summer: {label:'May – Sep', morning:'7:00 AM – 11:30 AM', evening:'4:00 PM – 8:30 PM', aarti:'6:30 PM'}
+};
+
+function getCurrentSeason(){
+  var month = new Date().getMonth(); // 0-indexed
+  // May(4) to Sep(8) = summer, Oct(9) to Apr(3) = winter
+  return (month >= 4 && month <= 8) ? 'summer' : 'winter';
+}

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Home - Ramakrishna Math, Dakshineshwar</title><link rel="icon" type="image/png" href="logo.png">
+<title>Home - Ramakrishna Math, Dakshineshwar</title><link rel="icon" type="image/png" href="images/logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="css/styles.css">
 </head><body>
 <div id="site-header"></div>
 <div class="page">
@@ -12,9 +12,9 @@
  <em>Sri Ramakrishna's</em> Leelakshetra</h1>
 </div>
 <div class="hero__trinity fadeUp fadeUp-d1">
-<img src="https://dakshineshwar.rkmm.org/Static%20Images/Swami_Vivekananda_Jaipur.jpg" alt="Swami Vivekananda">
-<img src="https://dakshineshwar.rkmm.org/Static%20Images/Sri_Ramakrishna.jpg" alt="Sri Ramakrishna">
-<img src="https://dakshineshwar.rkmm.org/Static%20Images/Sri-Sarada-Devi.jpg" alt="Sri Sarada Devi">
+<img src="images/Swami_Vivekananda_Jaipur.jpg" alt="Swami Vivekananda">
+<img src="images/Sri_Ramakrishna.jpg" alt="Sri Ramakrishna">
+<img src="images/Sri-Sarada-Devi.jpg" alt="Sri Sarada Devi">
 </div>
 <p class="hero__sub fadeUp fadeUp-d2">A branch centre of Ramakrishna Math, Belur - beside the holy Dakshineshwar Kali Temple where Sri Ramakrishna lived for over three decades.</p>
 <div class="hero__btns fadeUp fadeUp-d3">
@@ -24,9 +24,9 @@
 
 
 <div class="quickbar">
-<div class="qb__item"><div class="qb__icon">🕐</div><div class="qb__label">Temple</div><div class="qb__val">7 AM – 8 PM</div></div>
-<div class="qb__item"><div class="qb__icon">🪔</div><div class="qb__label">Next Aarti</div><div class="qb__val">3:30 PM</div></div>
-<div class="qb__item"><div class="qb__icon">📖</div><div class="qb__label">Today</div><div class="qb__val">Bhagavad Gita</div></div>
+<div class="qb__item"><div class="qb__icon">🕐</div><div class="qb__label">Temple</div><div class="qb__val" id="qbTemple">7 AM – 8 PM</div></div>
+<div class="qb__item"><div class="qb__icon">🪔</div><div class="qb__label">Next Aarti</div><div class="qb__val" id="qbAarti">3:30 PM</div></div>
+<div class="qb__item"><div class="qb__icon">📖</div><div class="qb__label">Today</div><div class="qb__val" id="qbToday">Bhagavad Gita</div></div>
 <div class="qb__item"><div class="qb__icon">📍</div><div class="qb__label">Near</div><div class="qb__val"><a href="https://www.google.com/maps/search/?api=1&query=Ramakrishna+Math+Dakshineshwar+22+TN+Biswas+Road+Kolkata+700035" target="_blank" style="color:var(--ink)">Kali Temple 2nd Gate</a></div></div>
 </div>
 </section>
@@ -187,210 +187,11 @@
 </section>
 </div>
 <div id="site-footer"></div>
-<script src="photos-data.js"></script>
-<script src="common.js"></script>
-<script src="quotes-data.js"></script>
-<script src="schedule-data.js"></script>
+<script src="js/photos-data.js"></script>
+<script src="js/common.js"></script>
+<script src="js/quotes-data.js"></script>
+<script src="js/schedule-data.js"></script>
+<script src="js/index.js"></script>
 
 
-<script>
-var scrips=[
-{day:'Sun',name:'Bhagavad Gita',desc:'Duty, devotion, knowledge - the eternal dialogue between Sri Krishna and Arjuna.',tag:'Today',icon:'📖'},
-{day:'Mon',name:'Letters of Swamiji',desc:'Practical spirituality, organizational wisdom, and fiery inspiration.',tag:'Mon',icon:'✉️'},
-{day:'Tue',name:'Sri Maa Life',desc:'The Holy Mother - extraordinary life of patience, love, and power.',tag:'Tue',icon:'🙏'},
-{day:'Wed',name:'Kathamrita',desc:'Recorded conversations of the Master at Dakshineshwar.',tag:'Wed',icon:'📜'},
-{day:'Thu',name:'Naradiya Bhakti',desc:'Sage Narada - aphorisms on supreme devotion and divine love.',tag:'Thu',icon:'💎'},
-{day:'Fri',name:'Lila Prasanga',desc:'Biography of Sri Ramakrishna by Swami Saradananda.',tag:'Fri',icon:'📕'},
-{day:'Sat',name:'Kathamrita / Gita',desc:'Alternating devotional and philosophical inquiry.',tag:'Sat',icon:'🕉️'}
-];
-var st=document.getElementById('scripTrack');
-var sd=document.getElementById('scripDetail');
-if(st&&sd){
-  function renderChips(){
-    var html='';
-    for(var i=0;i<scrips.length;i++){
-      html+='<div class="scrip__chip'+(i===0?' on':'')+'" data-i="'+i+'">';
-      html+='<div class="scrip__chip-day">'+scrips[i].day+'</div>';
-      html+='<div class="scrip__chip-name">'+scrips[i].name+'</div></div>';
-    }
-    st.innerHTML=html;
-  }
-  function showScrip(idx){
-    var s=scrips[idx];
-    sd.innerHTML='<h3><span class="scrip__detail-icon">'+s.icon+'</span> '+s.name+'</h3><p>'+s.desc+'</p><span class="tag">'+s.tag+'</span>';
-  }
-  renderChips();
-  showScrip(0);
-  st.addEventListener('click',function(e){
-    var chip=e.target.closest('.scrip__chip');
-    if(!chip)return;
-    var all=st.querySelectorAll('.scrip__chip');
-    for(var j=0;j<all.length;j++){all[j].classList.remove('on');}
-    chip.classList.add('on');
-    showScrip(parseInt(chip.getAttribute('data-i')));
-  });
-}
-</script>
-
-<script>
-(function(){
-
-  // Render photos from shared data
-var galleryTrack = document.getElementById('galleryTrack');
-if(galleryTrack && typeof PHOTO_ALBUMS !== 'undefined'){
-  var html = '';
-  for(var i = 0; i < PHOTO_ALBUMS.length; i++){
-    var a = PHOTO_ALBUMS[i];
-    html += '<a href="' + a.link + '" target="_blank" class="gallery__card">';
-    html += '<img src="' + a.img + '" alt="' + a.title + '" loading="lazy">';
-    html += '<div class="gallery__card__overlay">' + a.title + '<small>View Album →</small></div>';
-    html += '</a>';
-  }
-  galleryTrack.innerHTML = html;
-}
-  // ===== PHOTO CAROUSEL =====
-  var track=document.getElementById('galleryTrack');
-  var prev=document.getElementById('galPrev');
-  var next=document.getElementById('galNext');
-  if(track&&prev&&next){
-    var amt=300;
-    next.addEventListener('click',function(){track.scrollBy({left:amt,behavior:'smooth'})});
-    prev.addEventListener('click',function(){track.scrollBy({left:-amt,behavior:'smooth'})});
-    var auto=setInterval(function(){
-      if(track.scrollLeft+track.clientWidth>=track.scrollWidth-10){
-        track.scrollTo({left:0,behavior:'smooth'});
-      }else{
-        track.scrollBy({left:amt,behavior:'smooth'});
-      }
-    },4000);
-    track.addEventListener('mouseenter',function(){clearInterval(auto)});
-    track.addEventListener('touchstart',function(){clearInterval(auto)},{passive:true});
-  }
-
-  // ===== VIDEO CAROUSEL (dynamic from YouTube RSS) =====
-  var CHANNEL_ID = 'UCWQV-jSVceauuIA7nOFYndA';
-  var MAX_VIDEOS = 6;
-  var vtrack = document.getElementById('videoTrack');
-  var vprev = document.getElementById('vidPrev');
-  var vnext = document.getElementById('vidNext');
-
-  if(vtrack){
-    var rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-    var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
-
-    fetch(apiUrl)
-      .then(function(r){ return r.json() })
-      .then(function(data){
-        if(!data.items || data.items.length === 0){
-          vtrack.innerHTML = '<p style="color:var(--earth-light);padding:2rem">No videos found. <a href="https://www.youtube.com/@DakshineshwarRamakrishnaMath/videos" target="_blank" style="color:var(--saffron)">Watch on YouTube →</a></p>';
-          return;
-        }
-        var videos = data.items.slice(0, MAX_VIDEOS);
-        var html = '';
-        for(var i = 0; i < videos.length; i++){
-          var v = videos[i];
-          var videoId = '';
-          if(v.link){
-            var match = v.link.match(/[?&]v=([^&]+)/);
-            if(match) videoId = match[1];
-          }
-          if(!videoId) continue;
-
-          html += '<div style="flex:0 0 320px;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px var(--shadow);background:var(--white)">';
-          html += '<div style="position:relative;padding-bottom:56.25%;height:0;background:#000">';
-          html += '<iframe src="https://www.youtube.com/embed/' + videoId + '" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>';
-          html += '</div>';
-          html += '<div style="padding:.7rem 1rem">';
-          html += '<div style="font-family:var(--serif);font-size:.95rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + (v.title || '') + '</div>';
-          var date = v.pubDate ? new Date(v.pubDate).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '';
-          html += '<div style="font-size:.68rem;color:var(--earth-light);margin-top:.2rem">' + date + '</div>';
-          html += '</div></div>';
-        }
-        vtrack.innerHTML = html;
-      })
-      .catch(function(){
-        vtrack.innerHTML = '<p style="color:var(--earth-light);padding:2rem">Could not load videos. <a href="https://www.youtube.com/@DakshineshwarRamakrishnaMath/videos" target="_blank" style="color:var(--saffron)">Watch on YouTube →</a></p>';
-      });
-
-    if(vprev&&vnext){
-      vnext.addEventListener('click',function(){vtrack.scrollBy({left:340,behavior:'smooth'})});
-      vprev.addEventListener('click',function(){vtrack.scrollBy({left:-340,behavior:'smooth'})});
-    }
-  }
-
-  // ===== TAB SWITCHING =====
-  var tabs = document.querySelectorAll('#mediaTabs button');
-  var photosPanel = document.getElementById('photosPanel');
-  var videosPanel = document.getElementById('videosPanel');
-  tabs.forEach(function(tab){
-    tab.addEventListener('click',function(){
-      tabs.forEach(function(t){t.classList.remove('active')});
-      tab.classList.add('active');
-      if(tab.getAttribute('data-tab') === 'videos'){
-        photosPanel.style.display = 'none';
-        videosPanel.style.display = 'block';
-      } else {
-        photosPanel.style.display = 'block';
-        videosPanel.style.display = 'none';
-      }
-    });
-  });
-})();
-</script>
-<script>
-(function(){
-  // ===== DAILY QUOTE =====
-  var quoteEl = document.getElementById('dailyQuote');
-  var attrEl = document.getElementById('dailyQuoteAttr');
-  if(quoteEl && attrEl && typeof SPIRITUAL_QUOTES !== 'undefined'){
-    // Pick a quote based on the day of the year (changes daily, same all day)
-    var now = new Date();
-    var start = new Date(now.getFullYear(), 0, 0);
-    var dayOfYear = Math.floor((now - start) / 86400000);
-    var idx = dayOfYear % SPIRITUAL_QUOTES.length;
-    var q = SPIRITUAL_QUOTES[idx];
-    quoteEl.textContent = q.text;
-    attrEl.textContent = '— ' + q.author;
-  }
-
-  // ===== TODAY AT THE MATH =====
-  var heading = document.getElementById('todayHeading');
-  var grid = document.getElementById('todayGrid');
-  if(heading && grid && typeof DAILY_SCHEDULE !== 'undefined'){
-    var now = new Date();
-    var dayNum = now.getDay(); // 0=Sun, 1=Mon, ...
-    var schedule = DAILY_SCHEDULE[dayNum];
-
-    // Format: "Sunday, 23 March 2026"
-    var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-    heading.textContent = schedule.day + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
-
-    // Render cards
-    var html = '';
-    for(var i = 0; i < schedule.cards.length; i++){
-      var c = schedule.cards[i];
-      var delay = (i % 2 === 0) ? 'd1' : 'd2';
-      var metaHtml = '';
-      if(c.meta === 'link' && c.url){
-        metaHtml = '<a href="' + c.url + '" target="_blank" style="color:var(--saffron)">Visit Channel →</a>';
-      } else {
-        metaHtml = c.meta;
-      }
-      html += '<div class="tcard reveal ' + delay + '">';
-      html += '<div class="tcard__icon">' + c.icon + '</div>';
-      html += '<div class="tcard__title">' + c.title + '</div>';
-      html += '<div class="tcard__text">' + c.text + '</div>';
-      html += '<div class="tcard__meta">' + metaHtml + '</div>';
-      html += '</div>';
-    }
-    grid.innerHTML = html;
-
-    // Re-trigger reveal for dynamically added cards
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('vis') });
-    },{threshold:0.1});
-    grid.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el) });
-  }
-})();
-</script>
 </body></html>
