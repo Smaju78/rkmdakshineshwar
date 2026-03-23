@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Monthly Programs - Ramakrishna Math, Dakshineshwar</title><link rel="icon" type="image/png" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<div id="site-header"></div>
+<div class="page">
+<div class="prog-hero">
+<div class="breadcrumb"><a href="index.html">Home</a> / Monthly Programs</div>
+<h1>Programs & Schedule</h1>
+<p>Worship, study, celebration, and service - the rhythm of life at Dakshineshwar.</p>
+</div>
+
+<section class="sec">
+<div class="reveal"><div class="eyebrow">Weekly Scripture Schedule</div><h2 class="stitle">A Scripture for Every Day</h2></div>
+<div class="week-grid">
+<div class="week-card reveal d1"><div class="week-card__day">Sunday</div><div class="week-card__body"><div class="week-card__name">Bhagavad Gita</div><div class="week-card__desc">Verse-by-verse exposition with practical application for modern life.</div></div></div>
+<div class="week-card reveal d2"><div class="week-card__day">Monday</div><div class="week-card__body"><div class="week-card__name">Letters of Swami Vivekananda</div><div class="week-card__desc">Practical spirituality, organizational wisdom, and fiery inspiration.</div></div></div>
+<div class="week-card reveal d3"><div class="week-card__day">Tuesday</div><div class="week-card__body"><div class="week-card__name">Life of Sri Sarada Devi</div><div class="week-card__desc">The Holy Mother's extraordinary life of patience, love, and power.</div></div></div>
+<div class="week-card reveal d1"><div class="week-card__day">Wednesday</div><div class="week-card__body"><div class="week-card__name">Kathamrita</div><div class="week-card__desc">The Gospel of Sri Ramakrishna - conversations of the Master.</div></div></div>
+<div class="week-card reveal d2"><div class="week-card__day">Thursday</div><div class="week-card__body"><div class="week-card__name">Naradiya Bhakti Sutra</div><div class="week-card__desc">Sage Narada's aphorisms on supreme devotion.</div></div></div>
+<div class="week-card reveal d3"><div class="week-card__day">Friday</div><div class="week-card__body"><div class="week-card__name">Lila Prasanga</div><div class="week-card__desc">Biography of Sri Ramakrishna by Swami Saradananda.</div></div></div>
+<div class="week-card reveal d1"><div class="week-card__day">Saturday</div><div class="week-card__body"><div class="week-card__name">Kathamrita / Gita</div><div class="week-card__desc">Alternating devotional and philosophical inquiry.</div></div></div>
+</div></section>
+
+<section class="sec sec--cream">
+<div class="reveal"><div class="eyebrow">Special & Recurring</div><h2 class="stitle">Featured Programs</h2></div>
+<div class="special-grid">
+<div class="special-card reveal d1"><div class="special-card__icon">🎉</div><h3>Holy Day Celebrations</h3><p>Birthdays of Sri Ramakrishna, Holy Mother, and Swami Vivekananda with special worship, bhajans, and prasad.</p></div>
+<div class="special-card reveal d2"><div class="special-card__icon">🏕️</div><h3>Spiritual Retreats</h3><p>Residential and non-residential retreats at 'Mayer Naba Nahabat' campus - prayer, meditation, and study.</p></div>
+<div class="special-card reveal d3"><div class="special-card__icon">👨‍🎓</div><h3>Swami Shishya Sambad</h3><p>Weekly online youth sessions on Vivekananda's teachings, Karma Yoga, and value-based living. 30+ participants.</p></div>
+<div class="special-card reveal d1"><div class="special-card__icon">🤝</div><h3>Service Activities</h3><p>Distribution of study materials, food, clothing, and widow relief programmes.</p></div>
+<div class="special-card reveal d2"><div class="special-card__icon">🪔</div><h3>Daily Sandhya Aarti</h3><p>Evening ritual of light, chanting, and devotion - open to all visitors every day.</p></div>
+<div class="special-card reveal d3"><div class="special-card__icon">🩺</div><h3>Medical Camps</h3><p>Periodic health check-ups and consultations in nearby slum areas.</p></div>
+</div></section>
+
+<section class="sec sec--white">
+<div class="reveal" style="text-align:center;max-width:700px;margin:0 auto">
+<div class="eyebrow">March 2026</div><h2 class="stitle">Current Month Schedule</h2>
+<img src="https://dakshineshwar.rkmm.org/Image%202026-02-28%20at%209.13.26%20AM.jpeg" alt="March 2026 Programs" style="border-radius:16px;box-shadow:0 6px 30px var(--shadow);margin-top:1.5rem">
+<div style="margin-top:2rem"><a href="index.html" class="btn btn--g">← Back to Home</a></div>
+</div></section>
+</div>
+<div id="site-footer"></div>
+
+<script src="common.js"></script>
+
+<script>
+window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40)});
+document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('mm').classList.add('open'));
+document.getElementById('mmClose').addEventListener('click',()=>document.getElementById('mm').classList.remove('open'));
+document.querySelectorAll('.mmenu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mm').classList.remove('open')));
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body></html>

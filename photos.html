@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Photo Archives - Ramakrishna Math, Dakshineshwar</title><link rel="icon" type="image/png" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head><body>
+<div id="site-header"></div>
+
+<div class="page">
+
+<div class="photos-hero">
+<div class="breadcrumb"><a href="index.html">Home</a> / Photo Archives</div>
+<h1>Life at the <em>Math</em></h1>
+<p>Moments of worship, service, celebration, and fellowship - captured through the years.</p>
+<!-- <div class="photos-stats">
+<div class="photos-stat"><div class="photos-stat__num">11+</div><div class="photos-stat__label">Albums</div></div>
+<div class="photos-stat"><div class="photos-stat__num">2022</div><div class="photos-stat__label">Since</div></div>
+</div> -->
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+<button class="filter-btn active" data-cat="all">All</button>
+<button class="filter-btn" data-cat="worship">Worship</button>
+<button class="filter-btn" data-cat="events">Events & Visits</button>
+<button class="filter-btn" data-cat="service">Service</button>
+<button class="filter-btn" data-cat="campus">Campus</button>
+</div>
+
+<section class="sec">
+
+<div class="photo-grid-v2" id="photoGrid">
+</div>
+</section>
+
+</div>
+
+<div id="site-footer"></div>
+<script src="photos-data.js"></script>
+<script src="common.js"></script>
+
+<script>
+(function(){
+  var grid = document.getElementById('photoGrid');
+  if(!grid || typeof PHOTO_ALBUMS === 'undefined') return;
+
+  // Render all albums
+  function renderAlbums(filter){
+    var html = '';
+    for(var i = 0; i < PHOTO_ALBUMS.length; i++){
+      var a = PHOTO_ALBUMS[i];
+      if(filter && filter !== 'all' && a.cat !== filter) continue;
+
+      var badge = a.cat.charAt(0).toUpperCase() + a.cat.slice(1);
+      html += '<a href="' + a.link + '" target="_blank" class="pcard2 reveal" data-cat="' + a.cat + '">';
+      html += '<img src="' + a.img + '" class="pcard2__img" alt="' + a.title + '" loading="lazy">';
+      html += '<div class="pcard2__badge">' + badge + '</div>';
+      html += '<div class="pcard2__overlay">';
+      html += '<div class="pcard2__title">' + a.title + '</div>';
+      html += '<div class="pcard2__meta">📸 View Album →</div>';
+      html += '</div>';
+      html += '<div class="pcard2__bottom"><span class="pcard2__name">' + a.title + '</span><span class="pcard2__link">Open →</span></div>';
+      html += '</a>';
+    }
+    grid.innerHTML = html;
+
+    // Re-trigger reveal animations
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('vis') });
+    },{threshold:0.1});
+    grid.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el) });
+  }
+
+  renderAlbums('all');
+
+  // Filter buttons
+  var btns = document.querySelectorAll('.filter-btn');
+  btns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      btns.forEach(function(b){ b.classList.remove('active') });
+      btn.classList.add('active');
+      renderAlbums(btn.getAttribute('data-cat'));
+    });
+  });
+})();
+</script>
+</body></html>
