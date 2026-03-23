@@ -155,7 +155,7 @@ if(galleryTrack && typeof PHOTO_ALBUMS !== 'undefined'){
     var idx = dayOfYear % SPIRITUAL_QUOTES.length;
     var q = SPIRITUAL_QUOTES[idx];
     quoteEl.textContent = q.text;
-    attrEl.textContent = '— ' + q.author;
+    attrEl.textContent = ' -  ' + q.author;
   }
 
   // ===== TODAY AT THE MATH =====
@@ -247,7 +247,7 @@ if(typeof DAILY_SCHEDULE !== 'undefined'){
     }
   }
 
-  // Temple timings — from first Morning Worship start to Evening Aarti end
+  // Temple timings  -  from first Morning Worship start to Evening Aarti end
   var qbTemple = document.getElementById('qbTemple');
   if(qbTemple && schedule){
     var open = '';
@@ -272,7 +272,7 @@ if(typeof DAILY_SCHEDULE !== 'undefined'){
     var todayAartis = getAartiCards(schedule);
     var found = false;
 
-    // Check today's aartis — find the next one that hasn't started
+    // Check today's aartis  -  find the next one that hasn't started
     for(var i = 0; i < todayAartis.length; i++){
       var startStr = getStartTime(todayAartis[i].meta);
       var startHour = parseTime(startStr);

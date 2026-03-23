@@ -3,7 +3,7 @@ var DAILY_SCHEDULE = {
     day: 'Sunday',
     cards: [
       {icon:'🌅', title:'Morning Worship', text:'Mangal Aarti followed by meditation.', meta:'7:00 AM – 7:30 AM'},
-      {icon:'📖', title:'Bhagavad Gita Class', text:'Sunday Gita study — open to all seekers.', meta:'Sunday Special'},
+      {icon:'📖', title:'Bhagavad Gita Class', text:'Sunday Gita study  -  open to all seekers.', meta:'Sunday Special'},
       {icon:'🪔', title:'Evening Aarti', text:'Sandhya Aarti with devotional singing.', meta:'6:00 PM – 6:30 PM'},
       {icon:'🎥', title:'YouTube', text:'Watch discourses and celebrations.', meta:'link', url:'https://www.youtube.com/@DakshineshwarRamakrishnaMath'}
     ]
@@ -12,7 +12,7 @@ var DAILY_SCHEDULE = {
     day: 'Monday',
     cards: [
       {icon:'🌅', title:'Morning Worship', text:'Mangal Aarti followed by meditation.', meta:'7:00 AM – 7:30 AM'},
-      {icon:'✉️', title:'Letters of Swami Vivekananda', text:'Study of Swamiji\'s letters — practical spirituality and inspiration.', meta:'Evening Class'},
+      {icon:'✉️', title:'Letters of Swami Vivekananda', text:'Study of Swamiji\'s letters  -  practical spirituality and inspiration.', meta:'Evening Class'},
       {icon:'🪔', title:'Evening Aarti', text:'Sandhya Aarti with devotional singing.', meta:'6:00 PM – 6:30 PM'},
       {icon:'🎥', title:'YouTube', text:'Watch discourses and celebrations.', meta:'link', url:'https://www.youtube.com/@DakshineshwarRamakrishnaMath'}
     ]
@@ -30,7 +30,7 @@ var DAILY_SCHEDULE = {
     day: 'Wednesday',
     cards: [
       {icon:'🌅', title:'Morning Worship', text:'Mangal Aarti followed by meditation.', meta:'7:00 AM – 7:30 AM'},
-      {icon:'📜', title:'Kathamrita', text:'The Gospel of Sri Ramakrishna — conversations of the Master.', meta:'Evening Class'},
+      {icon:'📜', title:'Kathamrita', text:'The Gospel of Sri Ramakrishna  -  conversations of the Master.', meta:'Evening Class'},
       {icon:'🪔', title:'Evening Aarti', text:'Sandhya Aarti with devotional singing.', meta:'6:00 PM – 6:30 PM'},
       {icon:'🎥', title:'YouTube', text:'Watch discourses and celebrations.', meta:'link', url:'https://www.youtube.com/@DakshineshwarRamakrishnaMath'}
     ]

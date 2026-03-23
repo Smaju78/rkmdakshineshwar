@@ -73,29 +73,181 @@
 <p style="margin-top:1rem;font-size:.78rem;color:var(--saffron);font-weight:600">Minimum: ₹500 · Maximum: ₹5,00,000 per transaction</p>
 </div>
 
+<!-- DONATION FORM -->
+<div style="background:var(--white);border-radius:20px;padding:2rem;border:2px solid var(--gold-light);box-shadow:0 6px 30px var(--shadow);margin:2rem 0" id="donateForm">
+<h2 style="margin-top:0;font-size:1.4rem;text-align:center">Donate Online</h2>
+<p style="font-size:.85rem;color:var(--earth-light);text-align:center;margin-bottom:1.5rem">Fill in your details below. All fields marked * are required.</p>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+
+<div style="grid-column:1/-1">
+<label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.3rem">Title *</label>
+<select data-field="title" required style="width:100%;padding:.65rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.88rem;font-family:var(--sans);color:var(--ink);background:var(--cream);outline:none">
+<option value="">Select</option><option>Shri</option><option>Smt.</option><option>Kumari</option><option>Dr.</option><option>Prof.</option><option>Other</option>
+</select>
+</div>
+
+<div>
+<label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.3rem">First Name *</label>
+<input type="text" data-field="firstName" required placeholder="First name" style="width:100%;padding:.65rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.88rem;font-family:var(--sans);color:var(--ink);background:var(--cream);outline:none">
+</div>
+
+<div>
+<label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.3rem">Last Name *</label>
+<input type="text" data-field="lastName" required placeholder="Last name" style="width:100%;padding:.65rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.88rem;font-family:var(--sans);color:var(--ink);background:var(--cream);outline:none">
+</div>
+
+<div style="grid-column:1/-1">
+<label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.3rem">Address *</label>
+<input type="text" data-field="address" required placeholder="Full postal address" style="width:100%;padding:.65rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.88rem;font-family:var(--sans);color:var(--ink);background:var(--cream);outline:none">
+</div>
+
+<div>
+<label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.3rem">Contact No *</label>
+<input type="tel" data-field="contact" required placeholder="Phone number" style="width:100%;padding:.65rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.88rem;font-family:var(--sans);color:var(--ink);background:var(--cream);outline:none">
+</div>
+
+<div>
+<label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.3rem">WhatsApp No</label>
+<input type="tel" data-field="whatsapp" placeholder="If different" style="width:100%;padding:.65rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.88rem;font-family:var(--sans);color:var(--ink);background:var(--cream);outline:none">
+</div>
+
+<div style="grid-column:1/-1">
+<label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.3rem">Email *</label>
+<input type="email" data-field="email" required placeholder="Valid email address" style="width:100%;padding:.65rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.88rem;font-family:var(--sans);color:var(--ink);background:var(--cream);outline:none">
+</div>
+
+<div>
+<label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.3rem">Govt ID Type *</label>
+<select data-field="idType" required style="width:100%;padding:.65rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.88rem;font-family:var(--sans);color:var(--ink);background:var(--cream);outline:none">
+<option value="">Select</option><option>PAN</option><option>Aadhaar</option><option>Passport (NRI)</option>
+</select>
+</div>
+
+<div>
+<label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.3rem">ID Number *</label>
+<input type="text" data-field="idNumber" required placeholder="ID number" style="width:100%;padding:.65rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.88rem;font-family:var(--sans);color:var(--ink);background:var(--cream);outline:none">
+</div>
+
+<div style="grid-column:1/-1">
+<label style="display:block;font-size:.72rem;font-weight:600;color:var(--ink);letter-spacing:.04em;text-transform:uppercase;margin-bottom:.3rem">Donation Amount (₹) *</label>
+<input type="number" data-field="amount" required min="500" max="500000" placeholder="Minimum ₹500" style="width:100%;padding:.65rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.88rem;font-family:var(--sans);color:var(--ink);background:var(--cream);outline:none">
+</div>
+
+<div style="grid-column:1/-1;text-align:center;margin-top:.5rem">
+<button type="button" id="donateBtn" class="btn btn--p" style="width:100%;justify-content:center;padding:.85rem;font-size:.9rem">Proceed to Donate</button>
+<p style="margin-top:.8rem;font-size:.7rem;color:var(--earth-light)">Your details will be securely saved. You will then be guided to complete payment via UPI.</p>
+</div>
+
+</div>
+</div>
+
+<script>
+(function(){
+  var btn = document.getElementById('donateBtn');
+  if(!btn) return;
+
+  btn.addEventListener('click', function(){
+    var form = document.getElementById('donateForm');
+    var fields = form.querySelectorAll('[data-field]');
+    var data = {};
+    var missing = false;
+
+    fields.forEach(function(f){
+      var key = f.getAttribute('data-field');
+      var val = f.value.trim();
+      data[key] = val;
+      // Check required
+      if(f.hasAttribute('required') && !val){
+        f.style.borderColor = '#e74c3c';
+        missing = true;
+      } else {
+        f.style.borderColor = 'rgba(212,168,84,0.3)';
+      }
+    });
+
+    if(missing){
+      alert('Please fill in all required fields.');
+      return;
+    }
+
+    // Validate amount
+    var amt = parseInt(data.amount);
+    if(isNaN(amt) || amt < 500 || amt > 500000){
+      alert('Amount must be between ₹500 and ₹5,00,000.');
+      return;
+    }
+
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+
+    var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw-SsaWz5GeF2zFO0-wIKvvbYx63WjSiCb7A0Beflg9ShbEai_xs0P4Rv7YR5El9hDr/exec';
+
+    fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+        'Content-Type': 'text/plain'
+    },
+    body: JSON.stringify(data)
+    })
+    .then(function(){
+    btn.textContent = 'Submitted ✓';
+    btn.style.background = '#2a7d4f';
+    alert('Thank you! Your donation details have been recorded. Please proceed with payment via UPI using the QR code above.');
+    })
+    .catch(function(){
+    btn.textContent = 'Proceed to Donate';
+    btn.disabled = false;
+    alert('Could not save your details. Please try again or contact dakshineshwar@rkmm.org');
+    });
+  });
+})();
+</script>
+
 <!-- INSTRUCTIONS -->
 <div style="background:var(--white);border-radius:16px;padding:1.8rem;margin:1.5rem 0;border:1px solid rgba(212,168,84,0.25)">
 <h3 style="margin-top:0;margin-bottom:1rem;font-size:1.1rem">📋 Important Instructions</h3>
 <div style="display:grid;gap:.6rem">
-<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.88rem;color:var(--ink-soft);line-height:1.6">
+<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.85rem;color:var(--ink-soft);line-height:1.6">
 <span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">1</span>
-<span>Enter amount in <strong>Indian Rupees (₹)</strong> only</span>
+<span>Enter the amount in <strong>Indian Rupees (₹)</strong> only</span>
 </div>
-<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.88rem;color:var(--ink-soft);line-height:1.6">
+<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.85rem;color:var(--ink-soft);line-height:1.6">
 <span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">2</span>
-<span>This form is <strong>only for Indian Citizens</strong> - residing in India or abroad</span>
+<span>This donation form is only for <strong>Indian Citizens</strong> either residing in India or in a foreign country</span>
 </div>
-<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.88rem;color:var(--ink-soft);line-height:1.6">
+<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.85rem;color:var(--ink-soft);line-height:1.6">
 <span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">3</span>
+<span><strong>Foreign citizens</strong> (USA/EU/UK/Canadian/Australian/South American/Middle East/Singapore/Malaysian citizens) should <strong>not</strong> use this mode of transfer</span>
+</div>
+<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.85rem;color:var(--ink-soft);line-height:1.6">
+<span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">4</span>
+<span>Indian organizations can also donate — enter the <strong>organization name</strong> in the first name and last name fields</span>
+</div>
+<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.85rem;color:var(--ink-soft);line-height:1.6">
+<span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">5</span>
+<span>A <strong>minimum amount of ₹500</strong> is required for online donation</span>
+</div>
+<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.85rem;color:var(--ink-soft);line-height:1.6">
+<span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">6</span>
+<span>A <strong>maximum amount of ₹5 Lakhs</strong> can be donated in a single transaction</span>
+</div>
+<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.85rem;color:var(--ink-soft);line-height:1.6">
+<span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">7</span>
 <span><strong>PAN is mandatory</strong> for all online donations</span>
 </div>
-<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.88rem;color:var(--ink-soft);line-height:1.6">
-<span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">4</span>
-<span>Indian organizations can donate - enter organization name in the name fields</span>
+<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.85rem;color:var(--ink-soft);line-height:1.6">
+<span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">8</span>
+<span><strong>Non-resident Indians</strong> (Indian Citizens residing abroad) can use a credit card with foreign billing address but must enter the amount in Indian Rupees (₹)</span>
 </div>
-<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.88rem;color:var(--ink-soft);line-height:1.6">
-<span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">5</span>
-<span><strong>NRIs:</strong> Credit card with foreign billing address is accepted - amount must be in ₹. Passport Number + PAN or Aadhaar required</span>
+<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.85rem;color:var(--ink-soft);line-height:1.6">
+<span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">9</span>
+<span>NRIs need to enter their <strong>Passport Number</strong> (<a href="https://fcraonline.nic.in/home/PDF_Doc/fc_faq_07062019.pdf" target="_blank" style="color:var(--saffron)">as per Govt. regulations</a>) and either PAN Number (if 80G exemption required) or Aadhaar Number</span>
+</div>
+<div style="display:flex;gap:.8rem;align-items:flex-start;font-size:.85rem;color:var(--ink-soft);line-height:1.6">
+<span style="background:var(--saffron);color:var(--white);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;font-weight:700;flex-shrink:0;margin-top:2px">10</span>
+<span>All contributions are eligible for <strong>deduction under Section 80G</strong> of the Income Tax Act</span>
 </div>
 </div>
 </div>
