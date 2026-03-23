@@ -1,31 +1,52 @@
 
 var scrips=[
-{day:'Sun',name:'Bhagavad Gita',desc:'Duty, devotion, knowledge - the eternal dialogue between Sri Krishna and Arjuna.',tag:'Today',icon:'📖'},
-{day:'Mon',name:'Letters of Swamiji',desc:'Practical spirituality, organizational wisdom, and fiery inspiration.',tag:'Mon',icon:'✉️'},
-{day:'Tue',name:'Sri Maa Life',desc:'The Holy Mother - extraordinary life of patience, love, and power.',tag:'Tue',icon:'🙏'},
-{day:'Wed',name:'Kathamrita',desc:'Recorded conversations of the Master at Dakshineshwar.',tag:'Wed',icon:'📜'},
-{day:'Thu',name:'Naradiya Bhakti',desc:'Sage Narada - aphorisms on supreme devotion and divine love.',tag:'Thu',icon:'💎'},
-{day:'Fri',name:'Lila Prasanga',desc:'Biography of Sri Ramakrishna by Swami Saradananda.',tag:'Fri',icon:'📕'},
-{day:'Sat',name:'Kathamrita / Gita',desc:'Alternating devotional and philosophical inquiry.',tag:'Sat',icon:'🕉️'}
+{day:'Sun',name:'Bhagavad Gita',desc:'The eternal dialogue between Sri Krishna and Arjuna  -  on duty, devotion, and the path to liberation. The foundational text of the Ramakrishna Order.',tag:'Sunday',icon:'📖',source:'Vyasa'},
+{day:'Mon',name:'Letters of Swamiji',desc:'Practical spirituality, organizational wisdom, and fiery inspiration from the letters of Swami Vivekananda to disciples and friends.',tag:'Monday',icon:'✉️',source:'Swami Vivekananda'},
+{day:'Tue',name:'Sri Maa\'s Life',desc:'The Holy Mother Sri Sarada Devi  -  her extraordinary life of patience, unconditional love, and spiritual power.',tag:'Tuesday',icon:'🙏',source:'Swami Gambhirananda'},
+{day:'Wed',name:'Kathamrita',desc:'Sri Sri Ramakrishna Kathamrita  -  the recorded conversations of the Master at Dakshineshwar, as noted by Mahendranath Gupta (M).',tag:'Wednesday',icon:'📜',source:'Mahendranath Gupta'},
+{day:'Thu',name:'Naradiya Bhakti',desc:'Sage Narada\'s aphorisms on supreme devotion  -  the nature of divine love and the path to attain it.',tag:'Thursday',icon:'💎',source:'Sage Narada'},
+{day:'Fri',name:'Lila Prasanga',desc:'Sri Ramakrishna  -  the Great Master. The authoritative biography by Swami Saradananda, a direct disciple.',tag:'Friday',icon:'📕',source:'Swami Saradananda'},
+{day:'Sat',name:'Kathamrita / Gita',desc:'Alternating between the Gospel and the Gita  -  devotional and philosophical inquiry in harmony.',tag:'Saturday',icon:'🕉️',source:'Alternating'}
 ];
 var st=document.getElementById('scripTrack');
 var sd=document.getElementById('scripDetail');
 if(st&&sd){
+  var today = new Date().getDay(); // 0=Sun
+  var defaultIdx = (today === 0) ? 0 : today; // map to array index
+  if(defaultIdx >= scrips.length) defaultIdx = 0;
+
   function renderChips(){
     var html='';
     for(var i=0;i<scrips.length;i++){
-      html+='<div class="scrip__chip'+(i===0?' on':'')+'" data-i="'+i+'">';
+      var isToday = (i === defaultIdx);
+      html+='<button class="scrip__chip'+(isToday?' on':'')+'" data-i="'+i+'" style="position:relative">';
+      if(isToday) html+='<span style="position:absolute;top:-6px;right:-6px;background:var(--saffron);color:var(--white);font-size:.5rem;font-weight:700;padding:1px 5px;border-radius:100px;letter-spacing:.04em">TODAY</span>';
       html+='<div class="scrip__chip-day">'+scrips[i].day+'</div>';
-      html+='<div class="scrip__chip-name">'+scrips[i].name+'</div></div>';
+      html+='<div class="scrip__chip-name">'+scrips[i].name+'</div></button>';
     }
     st.innerHTML=html;
   }
+
   function showScrip(idx){
     var s=scrips[idx];
-    sd.innerHTML='<h3><span class="scrip__detail-icon">'+s.icon+'</span> '+s.name+'</h3><p>'+s.desc+'</p><span class="tag">'+s.tag+'</span>';
+    var isToday = (idx === defaultIdx);
+    var html='';
+    html+='<div style="background:var(--white);border-radius:16px;padding:1.8rem;border:1px solid rgba(212,168,84,0.2);box-shadow:0 4px 20px var(--shadow);text-align:center">';
+    html+='<div style="font-size:2.5rem;margin-bottom:.6rem">'+s.icon+'</div>';
+    html+='<h3 style="font-family:var(--serif);font-size:1.4rem;font-weight:600;color:var(--ink);margin-bottom:.3rem">'+s.name+'</h3>';
+    html+='<p style="font-size:.88rem;color:var(--earth-light);line-height:1.65;margin-bottom:.8rem">'+s.desc+'</p>';
+    html+='<div style="display:flex;justify-content:center;gap:.5rem;flex-wrap:wrap">';
+    html+='<span style="display:inline-block;background:var(--saffron);color:var(--white);font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .7rem;border-radius:100px">'+s.tag+'</span>';
+    html+='<span style="display:inline-block;background:var(--cream);color:var(--earth);font-size:.6rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:.25rem .7rem;border-radius:100px">By '+s.source+'</span>';
+    if(isToday) html+='<span style="display:inline-block;background:var(--ink);color:var(--gold-light);font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .7rem;border-radius:100px">📖 Being Studied Today</span>';
+    html+='</div>';
+    html+='</div>';
+    sd.innerHTML=html;
   }
+
   renderChips();
-  showScrip(0);
+  showScrip(defaultIdx);
+
   st.addEventListener('click',function(e){
     var chip=e.target.closest('.scrip__chip');
     if(!chip)return;
@@ -35,6 +56,7 @@ if(st&&sd){
     showScrip(parseInt(chip.getAttribute('data-i')));
   });
 }
+
 
 
 
@@ -140,10 +162,7 @@ if(galleryTrack && typeof PHOTO_ALBUMS !== 'undefined'){
       }
     });
   });
-})();
 
-
-(function(){
   // ===== DAILY QUOTE =====
   var quoteEl = document.getElementById('dailyQuote');
   var attrEl = document.getElementById('dailyQuoteAttr');
@@ -294,5 +313,48 @@ if(typeof DAILY_SCHEDULE !== 'undefined'){
   }
 }
 
+// ===== UPCOMING PROGRAMS =====
+var upGrid = document.getElementById('upcomingGrid');
+if(upGrid && typeof UPCOMING_PROGRAMS !== 'undefined'){
+  var now = new Date();
+  var todayStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+  var shown = 0;
+  var html = '';
+
+  for(var i = 0; i < UPCOMING_PROGRAMS.length; i++){
+    var p = UPCOMING_PROGRAMS[i];
+    // Skip past dated events
+    if(p.date && p.date < todayStr) continue;
+    if(shown >= 4) break;
+
+    var delay = ['d1','d2','d3','d1'][shown];
+    var isEvent = !!p.date;
+
+    html += '<div class="reveal ' + delay + '" style="background:var(--white);border-radius:16px;padding:1.5rem;border:1px solid rgba(212,168,84,0.25);box-shadow:0 2px 12px var(--shadow);position:relative;overflow:hidden;transition:all .3s var(--ease)">';
+
+    // Coloured left accent
+    html += '<div style="position:absolute;top:0;left:0;bottom:0;width:4px;background:' + (isEvent ? 'var(--saffron)' : 'var(--gold)') + '"></div>';
+
+    html += '<div style="padding-left:.8rem">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem">';
+    html += '<div style="font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--saffron)">' + p.when + '</div>';
+    html += '<span style="font-size:1.3rem">' + p.icon + '</span>';
+    html += '</div>';
+    html += '<h3 style="font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--ink);margin-bottom:.3rem">' + p.title + '</h3>';
+    html += '<p style="font-size:.82rem;color:var(--earth-light);line-height:1.6;margin-bottom:.5rem">' + p.desc + '</p>';
+    html += '<span style="display:inline-block;background:var(--cream);padding:.2rem .6rem;border-radius:6px;font-size:.64rem;font-weight:600;color:var(--earth);letter-spacing:.04em;text-transform:uppercase">' + p.tag + '</span>';
+    html += '</div></div>';
+
+    shown++;
+  }
+
+  upGrid.innerHTML = html;
+
+  // Re-trigger reveal
+  var obs2 = new IntersectionObserver(function(entries){
+    entries.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('vis') });
+  },{threshold:0.1});
+  upGrid.querySelectorAll('.reveal').forEach(function(el){ obs2.observe(el) });
+}
 
 })();
