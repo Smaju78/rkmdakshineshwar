@@ -96,7 +96,7 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}button{fon
 
 /* QUICKBAR */
 .quickbar{display:grid;width:100%;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin:2rem clamp(1rem,4vw,4rem) 0;border-radius:14px;overflow:hidden;position:relative;z-index:2;gap:0;background:none}
-@media(max-width:768px){.quickbar{margin:5.5rem .8rem 0;grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.quickbar{margin:3.5rem .8rem 0;grid-template-columns:repeat(2,1fr)}}
 .qb__item{background:rgba(255,255,255,0.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:1.2rem 1rem;text-align:center;
   border-right:2px solid rgba(212,168,84,0.5);}
 .qb__item{border-right:2px solid rgba(212,168,84,0.5);border-bottom:none}
