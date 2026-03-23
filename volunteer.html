@@ -7,9 +7,13 @@
 <div id="site-header"></div>
 
 <div class="page">
-<div class="page-header">
-<h1>Volunteer with Us</h1>
-<div class="breadcrumb"><a href="index.html">Home</a> / Volunteer</div>
+<div style="background:linear-gradient(135deg,#1a3a2a 0%,var(--ink) 100%);color:var(--cream);padding:clamp(4rem,8vw,6rem) clamp(1.2rem,4vw,4rem) clamp(2rem,4vw,3rem);text-align:center;position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;background:radial-gradient(ellipse 500px 400px at 50% 50%,rgba(232,114,42,0.08),transparent)"></div>
+<div style="position:relative">
+<div class="breadcrumb" style="color:rgba(240,221,184,0.4)"><a href="index.html" style="color:var(--saffron)">Home</a> / Volunteer</div>
+<h1 style="font-family:var(--serif);font-size:clamp(2rem,5vw,3.2rem);font-weight:300;color:var(--cream);margin-top:.6rem">Serve in the Spirit of <em style="color:var(--gold);font-weight:400">Shiva Jnane Jiva Seva</em></h1>
+<p style="font-size:1rem;color:rgba(240,221,184,0.55);max-width:480px;margin:.6rem auto 0">See God in every being you serve — at the Math in person, or from anywhere online.</p>
+</div>
 </div>
 
 <div class="content">
@@ -89,12 +93,5 @@
 <div id="site-footer"></div>
 <script src="js/common.js"></script>
 
-<script>
-window.addEventListener('scroll',function(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40)});
-document.getElementById('menuBtn').addEventListener('click',function(){document.getElementById('mm').classList.add('open')});
-document.getElementById('mmClose').addEventListener('click',function(){document.getElementById('mm').classList.remove('open')});
-document.querySelectorAll('.mmenu a').forEach(function(a){a.addEventListener('click',function(){document.getElementById('mm').classList.remove('open')})});
-var obs=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(function(el){obs.observe(el)});
-</script>
+
 </body></html>
