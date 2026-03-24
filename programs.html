@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Monthly Programs - Ramakrishna Math, Dakshineshwar</title><link rel="icon" type="image/png" href="logo.png">
+<title>Monthly Programs — Ramakrishna Math, Dakshineshwar</title><link rel="icon" type="image/png" href="images/logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 </head><body>
@@ -9,49 +9,155 @@
 <div class="prog-hero">
 <div class="breadcrumb"><a href="index.html">Home</a> / Monthly Programs</div>
 <h1>Programs & Schedule</h1>
-<p>Worship, study, celebration, and service - the rhythm of life at Dakshineshwar.</p>
+<p>Worship, study, celebration, and service — the rhythm of life at Dakshineshwar.</p>
 </div>
 
+<!-- WEEKLY SCRIPTURE SCHEDULE (dynamic) -->
 <section class="sec">
 <div class="reveal"><div class="eyebrow">Weekly Scripture Schedule</div><h2 class="stitle">A Scripture for Every Day</h2></div>
-<div class="week-grid">
-<div class="week-card reveal d1"><div class="week-card__day">Sunday</div><div class="week-card__body"><div class="week-card__name">Bhagavad Gita</div><div class="week-card__desc">Verse-by-verse exposition with practical application for modern life.</div></div></div>
-<div class="week-card reveal d2"><div class="week-card__day">Monday</div><div class="week-card__body"><div class="week-card__name">Letters of Swami Vivekananda</div><div class="week-card__desc">Practical spirituality, organizational wisdom, and fiery inspiration.</div></div></div>
-<div class="week-card reveal d3"><div class="week-card__day">Tuesday</div><div class="week-card__body"><div class="week-card__name">Life of Sri Sarada Devi</div><div class="week-card__desc">The Holy Mother's extraordinary life of patience, love, and power.</div></div></div>
-<div class="week-card reveal d1"><div class="week-card__day">Wednesday</div><div class="week-card__body"><div class="week-card__name">Kathamrita</div><div class="week-card__desc">The Gospel of Sri Ramakrishna - conversations of the Master.</div></div></div>
-<div class="week-card reveal d2"><div class="week-card__day">Thursday</div><div class="week-card__body"><div class="week-card__name">Naradiya Bhakti Sutra</div><div class="week-card__desc">Sage Narada's aphorisms on supreme devotion.</div></div></div>
-<div class="week-card reveal d3"><div class="week-card__day">Friday</div><div class="week-card__body"><div class="week-card__name">Lila Prasanga</div><div class="week-card__desc">Biography of Sri Ramakrishna by Swami Saradananda.</div></div></div>
-<div class="week-card reveal d1"><div class="week-card__day">Saturday</div><div class="week-card__body"><div class="week-card__name">Kathamrita / Gita</div><div class="week-card__desc">Alternating devotional and philosophical inquiry.</div></div></div>
-</div></section>
+<div class="week-grid" id="weekGrid">
+<p style="color:var(--earth-light);font-size:.9rem">Loading schedule...</p>
+</div>
+</section>
 
+<!-- UPCOMING EVENTS (dynamic) -->
 <section class="sec sec--warm">
+<div class="reveal"><div class="eyebrow">Upcoming</div><h2 class="stitle">Festivals & Events</h2><p class="sdesc">Holy days and special celebrations at the Math.</p></div>
+<div id="eventsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;margin-top:2rem">
+<p style="color:var(--earth-light);font-size:.9rem">Loading events...</p>
+</div>
+</section>
+
+<!-- SPECIAL & RECURRING -->
+<section class="sec sec--white">
 <div class="reveal"><div class="eyebrow">Special & Recurring</div><h2 class="stitle">Featured Programs</h2></div>
 <div class="special-grid">
 <div class="special-card reveal d1"><div class="special-card__icon">🎉</div><h3>Holy Day Celebrations</h3><p>Birthdays of Sri Ramakrishna, Holy Mother, and Swami Vivekananda with special worship, bhajans, and prasad.</p></div>
-<div class="special-card reveal d2"><div class="special-card__icon">🏕️</div><h3>Spiritual Retreats</h3><p>Residential and non-residential retreats at 'Mayer Naba Nahabat' campus - prayer, meditation, and study.</p></div>
+<div class="special-card reveal d2"><div class="special-card__icon">🏕️</div><h3>Spiritual Retreats</h3><p>Residential and non-residential retreats at 'Mayer Naba Nahabat' campus — prayer, meditation, and study.</p></div>
 <div class="special-card reveal d3"><div class="special-card__icon">👨‍🎓</div><h3>Swami Shishya Sambad</h3><p>Weekly online youth sessions on Vivekananda's teachings, Karma Yoga, and value-based living. 30+ participants.</p></div>
 <div class="special-card reveal d1"><div class="special-card__icon">🤝</div><h3>Service Activities</h3><p>Distribution of study materials, food, clothing, and widow relief programmes.</p></div>
-<div class="special-card reveal d2"><div class="special-card__icon">🪔</div><h3>Daily Sandhya Aarti</h3><p>Evening ritual of light, chanting, and devotion - open to all visitors every day.</p></div>
+<div class="special-card reveal d2"><div class="special-card__icon">🪔</div><h3>Daily Sandhya Aarti</h3><p>Evening ritual of light, chanting, and devotion — open to all visitors every day.</p></div>
 <div class="special-card reveal d3"><div class="special-card__icon">🩺</div><h3>Medical Camps</h3><p>Periodic health check-ups and consultations in nearby slum areas.</p></div>
-</div></section>
+</div>
+</section>
 
+<!-- CURRENT MONTH IMAGE -->
 <section class="sec sec--cream">
 <div class="reveal" style="text-align:center;max-width:700px;margin:0 auto">
 <div class="eyebrow">March 2026</div><h2 class="stitle">Current Month Schedule</h2>
 <img src="https://dakshineshwar.rkmm.org/Image%202026-02-28%20at%209.13.26%20AM.jpeg" alt="March 2026 Programs" style="border-radius:16px;box-shadow:0 6px 30px var(--shadow);margin-top:1.5rem">
 <div style="margin-top:2rem"><a href="index.html" class="btn btn--g">← Back to Home</a></div>
-</div></section>
+</div>
+</section>
+
 </div>
 <div id="site-footer"></div>
 
+<script src="js/sheet-loader.js"></script>
 <script src="js/common.js"></script>
 
 <script>
-window.addEventListener('scroll',()=>{document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40)});
-document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('mm').classList.add('open'));
-document.getElementById('mmClose').addEventListener('click',()=>document.getElementById('mm').classList.remove('open'));
-document.querySelectorAll('.mmenu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mm').classList.remove('open')));
-const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+onAllSheetsLoaded(function(){
+
+  // ===== WEEKLY SCRIPTURE SCHEDULE (from Schedule tab) =====
+  var weekGrid = document.getElementById('weekGrid');
+  if(weekGrid && DAILY_SCHEDULE){
+    var todayNum = new Date().getDay();
+    var html = '';
+    for(var d = 0; d < 7; d++){
+      var sched = DAILY_SCHEDULE[d];
+      if(!sched || !sched.cards) continue;
+
+      // Find the scripture class (not Morning Worship, not Evening Aarti, not YouTube)
+      var scripture = null;
+      var worshipMeta = '';
+      var aartiMeta = '';
+      for(var i = 0; i < sched.cards.length; i++){
+        var c = sched.cards[i];
+        if(c.title === 'Morning Worship') worshipMeta = c.meta;
+        else if(c.title === 'Evening Aarti') aartiMeta = c.meta;
+        else if(c.meta !== 'link' && !scripture) scripture = c;
+      }
+
+      var isToday = (d === todayNum);
+      var delay = ['d1','d2','d3','d1','d2','d3','d1'][d];
+
+      html += '<div class="week-card reveal ' + delay + '"' + (isToday ? ' style="border:2px solid var(--saffron);box-shadow:0 4px 20px rgba(232,114,42,0.15)"' : '') + '>';
+      html += '<div class="week-card__day">';
+      html += sched.day;
+      if(isToday) html += ' <span style="background:var(--saffron);color:var(--white);font-size:.5rem;font-weight:700;padding:2px 6px;border-radius:100px;letter-spacing:.04em;vertical-align:middle;margin-left:.3rem">TODAY</span>';
+      html += '</div>';
+      html += '<div class="week-card__body">';
+      if(scripture){
+        html += '<div class="week-card__name">' + scripture.title + '</div>';
+        html += '<div class="week-card__desc">' + scripture.text + '</div>';
+        if(scripture.meta && scripture.meta !== 'link'){
+          html += '<div style="margin-top:.4rem;font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--saffron)">' + scripture.meta + '</div>';
+        }
+      }
+      // Show worship timings
+      if(worshipMeta || aartiMeta){
+        html += '<div style="margin-top:.6rem;padding-top:.5rem;border-top:1px solid rgba(212,168,84,0.15);font-size:.72rem;color:var(--earth-light)">';
+        if(worshipMeta) html += '🌅 ' + worshipMeta;
+        if(worshipMeta && aartiMeta) html += ' &nbsp;·&nbsp; ';
+        if(aartiMeta) html += '🪔 ' + aartiMeta;
+        html += '</div>';
+      }
+      html += '</div></div>';
+    }
+    weekGrid.innerHTML = html;
+
+    // Re-trigger reveal
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('vis') });
+    },{threshold:0.1});
+    weekGrid.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el) });
+  }
+
+  // ===== UPCOMING EVENTS (from Programs tab) =====
+  var eventsGrid = document.getElementById('eventsGrid');
+  if(eventsGrid && UPCOMING_PROGRAMS.length > 0){
+    var now = new Date();
+    var todayStr = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+    var html = '';
+    var shown = 0;
+
+    for(var i = 0; i < UPCOMING_PROGRAMS.length; i++){
+      var p = UPCOMING_PROGRAMS[i];
+      // Skip past dated events
+      if(p.date && p.date < todayStr) continue;
+
+      var delay = ['d1','d2','d3'][shown % 3];
+      var isEvent = !!p.date;
+
+      html += '<div class="reveal ' + delay + '" style="background:var(--white);border-radius:16px;padding:1.5rem;border:1px solid rgba(212,168,84,0.25);box-shadow:0 2px 12px var(--shadow);position:relative;overflow:hidden;transition:all .3s var(--ease)">';
+      html += '<div style="position:absolute;top:0;left:0;bottom:0;width:4px;background:' + (isEvent ? 'var(--saffron)' : 'var(--gold)') + '"></div>';
+      html += '<div style="padding-left:.8rem">';
+      html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem">';
+      html += '<div style="font-size:.66rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--saffron)">' + p.when + '</div>';
+      html += '<span style="font-size:1.3rem">' + p.icon + '</span>';
+      html += '</div>';
+      html += '<h3 style="font-family:var(--serif);font-size:1.1rem;font-weight:600;color:var(--ink);margin-bottom:.3rem">' + p.title + '</h3>';
+      html += '<p style="font-size:.82rem;color:var(--earth-light);line-height:1.6;margin-bottom:.5rem">' + p.desc + '</p>';
+      html += '<span style="display:inline-block;background:var(--cream-warm);padding:.2rem .6rem;border-radius:6px;font-size:.64rem;font-weight:600;color:var(--earth);letter-spacing:.04em;text-transform:uppercase">' + p.tag + '</span>';
+      html += '</div></div>';
+
+      shown++;
+    }
+
+    if(shown === 0){
+      html = '<p style="color:var(--earth-light);font-size:.9rem;grid-column:1/-1;text-align:center">No upcoming events at the moment.</p>';
+    }
+
+    eventsGrid.innerHTML = html;
+
+    var obs2 = new IntersectionObserver(function(entries){
+      entries.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('vis') });
+    },{threshold:0.1});
+    eventsGrid.querySelectorAll('.reveal').forEach(function(el){ obs2.observe(el) });
+  }
+
+});
 </script>
+
 </body></html>
