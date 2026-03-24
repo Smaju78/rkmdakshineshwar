@@ -92,65 +92,30 @@ Replace the title, description, and tag.
 </div>
 
 <div id="site-footer"></div>
+<script src="js/sheet-loader.js"></script>
 <script src="js/common.js"></script>
 <script>
-(function(){
-  // REPLACE THIS with your actual Channel ID
-  var CHANNEL_ID = 'UCWQV-jSVceauuIA7nOFYndA';
-  var MAX_VIDEOS = 6;
-
-  var rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-  var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
-
-  var grid = document.getElementById('ytGrid');
-  if (!grid) return;
-
-  fetch(apiUrl)
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      if (!data.items || data.items.length === 0) {
-        grid.innerHTML = '<p style="text-align:center;color:var(--earth-light);grid-column:1/-1">No videos found. <a href="https://www.youtube.com/@DakshineshwarRamakrishnaMath/videos" target="_blank" style="color:var(--saffron)">Visit our channel →</a></p>';
-        return;
+onAllSheetsLoaded(function(){
+    var grid = document.getElementById('ytGrid');
+    var html = '';
+    var count = Math.min(YT_VIDEOS.length, 6);
+    for(var i = 0; i < count; i++){
+      var v = YT_VIDEOS[i];
+      var date = '';
+      if(v.published){
+        var d = new Date(v.published);
+        date = d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
       }
-
-      var videos = data.items.slice(0, MAX_VIDEOS);
-      var html = '';
-
-      for (var i = 0; i < videos.length; i++) {
-        var v = videos[i];
-        // Extract video ID from the link
-        var videoId = '';
-        if (v.link) {
-          var match = v.link.match(/[?&]v=([^&]+)/);
-          if (match) videoId = match[1];
-        }
-        // Format date
-        var date = '';
-        if (v.pubDate) {
-          var d = new Date(v.pubDate);
-          date = d.toLocaleDateString('en-IN', {day:'numeric', month:'short', year:'numeric'});
-        }
-        // Truncate description
-        var desc = v.description || '';
-        desc = desc.replace(/<[^>]*>/g, '').substring(0, 120);
-        if (desc.length >= 120) desc += '...';
-
-        html += '<div class="video-card">';
-        html += '<div class="video-card__embed">';
-        html += '<iframe src="https://www.youtube.com/embed/' + videoId + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
-        html += '</div>';
-        html += '<div class="video-card__info">';
-        html += '<div class="video-card__title">' + (v.title || 'Untitled') + '</div>';
-        html += '<div class="video-card__desc">' + desc + '</div>';
-        html += '<div class="video-card__tag">' + date + '</div>';
-        html += '</div></div>';
-      }
-
-      grid.innerHTML = html;
-    })
-    .catch(function(){
-      grid.innerHTML = '<p style="text-align:center;color:var(--earth-light);grid-column:1/-1">Could not load videos. <a href="https://www.youtube.com/@DakshineshwarRamakrishnaMath/videos" target="_blank" style="color:var(--saffron)">Watch on YouTube →</a></p>';
-    });
-})();
+      html += '<div class="video-card">';
+      html += '<div class="video-card__embed">';
+      html += '<iframe src="https://www.youtube.com/embed/' + v.videoId + '" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>';
+      html += '</div>';
+      html += '<div class="video-card__info">';
+      html += '<div class="video-card__title">' + v.title + '</div>';
+      html += '<div class="video-card__tag">' + date + '</div>';
+      html += '</div></div>';
+    }
+    grid.innerHTML = html;
+});
 </script>
 </body></html>

@@ -61,54 +61,7 @@ if(st&&sd){
 
 // ===== VIDEO CAROUSEL (YouTube RSS, runs immediately) =====
 (function(){
-  var CHANNEL_ID = 'UCWQV-jSVceauuIA7nOFYndA';
-  var MAX_VIDEOS = 6;
-  var vtrack = document.getElementById('videoTrack');
-  var vprev = document.getElementById('vidPrev');
-  var vnext = document.getElementById('vidNext');
-
-  if(vtrack){
-    var rssUrl = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-    var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
-
-    fetch(apiUrl)
-      .then(function(r){ return r.json() })
-      .then(function(data){
-        if(!data.items || data.items.length === 0){
-          vtrack.innerHTML = '<p style="color:var(--earth-light);padding:2rem">No videos found. <a href="https://www.youtube.com/@DakshineshwarRamakrishnaMath/videos" target="_blank" style="color:var(--saffron)">Watch on YouTube →</a></p>';
-          return;
-        }
-        var videos = data.items.slice(0, MAX_VIDEOS);
-        var html = '';
-        for(var i = 0; i < videos.length; i++){
-          var v = videos[i];
-          var videoId = '';
-          if(v.link){
-            var match = v.link.match(/[?&]v=([^&]+)/);
-            if(match) videoId = match[1];
-          }
-          if(!videoId) continue;
-          html += '<div style="flex:0 0 320px;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px var(--shadow);background:var(--white)">';
-          html += '<div style="position:relative;padding-bottom:56.25%;height:0;background:#000">';
-          html += '<iframe src="https://www.youtube.com/embed/' + videoId + '" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>';
-          html += '</div>';
-          html += '<div style="padding:.7rem 1rem">';
-          html += '<div style="font-family:var(--serif);font-size:.95rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + (v.title || '') + '</div>';
-          var date = v.pubDate ? new Date(v.pubDate).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}) : '';
-          html += '<div style="font-size:.68rem;color:var(--earth-light);margin-top:.2rem">' + date + '</div>';
-          html += '</div></div>';
-        }
-        vtrack.innerHTML = html;
-      })
-      .catch(function(){
-        vtrack.innerHTML = '<p style="color:var(--earth-light);padding:2rem">Could not load videos. <a href="https://www.youtube.com/@DakshineshwarRamakrishnaMath/videos" target="_blank" style="color:var(--saffron)">Watch on YouTube →</a></p>';
-      });
-
-    if(vprev&&vnext){
-      vnext.addEventListener('click',function(){vtrack.scrollBy({left:340,behavior:'smooth'})});
-      vprev.addEventListener('click',function(){vtrack.scrollBy({left:-340,behavior:'smooth'})});
-    }
-  }
+  
 
   // ===== TAB SWITCHING =====
   var tabs = document.querySelectorAll('#mediaTabs button');
@@ -301,6 +254,40 @@ onAllSheetsLoaded(function(){
       track.addEventListener('mouseenter',function(){clearInterval(auto)});
       track.addEventListener('touchstart',function(){clearInterval(auto)},{passive:true});
     }
+  }
+
+  // ===== VIDEO CAROUSEL (from Google Sheet) =====
+  var vtrack = document.getElementById('videoTrack');
+  var vprev = document.getElementById('vidPrev');
+  var vnext = document.getElementById('vidNext');
+  //console.log(YT_VIDEOS)
+ 
+  if(vtrack && YT_VIDEOS.length > 0){
+    var html = '';
+    var count = Math.min(YT_VIDEOS.length, 6);
+    for(var i = 0; i < count; i++){
+      var v = YT_VIDEOS[i];
+      var date = '';
+      if(v.published){
+        var d = new Date(v.published);
+        date = d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+      }
+      html += '<div style="flex:0 0 320px;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px var(--shadow);background:var(--white)">';
+      html += '<div style="position:relative;padding-bottom:56.25%;height:0;background:#000">';
+      html += '<iframe src="https://www.youtube.com/embed/' + v.videoId + '" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" allowfullscreen loading="lazy"></iframe>';
+      html += '</div>';
+      html += '<div style="padding:.7rem 1rem">';
+      html += '<div style="font-family:var(--serif);font-size:.95rem;font-weight:600;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">' + v.title + '</div>';
+      html += '<div style="font-size:.68rem;color:var(--earth-light);margin-top:.2rem">' + date + '</div>';
+      html += '</div></div>';
+       //console.log(html)
+    }
+    vtrack.innerHTML = html;
+  }
+//console.log(vtrack.innerHTML)
+  if(vprev && vnext){
+    vnext.addEventListener('click',function(){vtrack.scrollBy({left:340,behavior:'smooth'})});
+    vprev.addEventListener('click',function(){vtrack.scrollBy({left:-340,behavior:'smooth'})});
   }
 
   // ----- UPCOMING PROGRAMS -----
