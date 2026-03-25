@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Activity Reports  -  Ramakrishna Math, Dakshineshwar</title><link rel="icon" type="image/png" href="images/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head><body>
+<div id="site-header"></div>
+<div class="page" style="background:var(--cream-warm)">
+
+<!-- HERO -->
+<div style="background:linear-gradient(135deg,var(--ink) 0%,#3D2A1E 100%);color:var(--cream);padding:clamp(4rem,8vw,6rem) clamp(1.2rem,4vw,4rem) clamp(2rem,4vw,3rem);text-align:center;position:relative;overflow:hidden">
+<div style="position:absolute;inset:0;background:radial-gradient(ellipse 500px 400px at 50% 50%,rgba(232,114,42,0.1),transparent)"></div>
+<div style="position:relative">
+<div class="breadcrumb" style="color:rgba(240,221,184,0.4)"><a href="index.html" style="color:var(--saffron)">Home</a> / <a href="activities.html" style="color:var(--saffron)">Activities</a> / Reports</div>
+<h1 style="font-family:var(--serif);font-size:clamp(2rem,5vw,3.2rem);font-weight:300;color:var(--cream);margin-top:.6rem">Activity <em style="color:var(--gold);font-weight:400">Reports</em></h1>
+<p style="font-size:1rem;color:rgba(240,221,184,0.55);max-width:500px;margin:.6rem auto 0">A transparent record of the Math's work  -  month by month.</p>
+</div>
+</div>
+
+<!-- IMPACT STATS BAR -->
+<div id="impactBar" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--gold-light);margin:0 clamp(1rem,4vw,4rem);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px var(--shadow);position:relative;z-index:2;margin-top:-2rem">
+</div>
+
+<!-- MONTH ACCORDION -->
+<div class="sec sec--warm" style="max-width:900px;margin:0 auto">
+<div id="reportAccordion">
+<p style="color:var(--earth-light);font-size:.9rem;text-align:center">Loading activity reports...</p>
+</div>
+<div style="text-align:center; padding-top: 1rem;">
+<a href="activities.html" class="btn btn--g">View All Activities →</a>
+<!-- <a href="donate-indian.html" class="btn btn--p" style="margin-left:.5rem">Support Our Work</a> -->
+</div>
+</div>
+
+<!-- <div class="sec sec--warm" style="text-align:center">
+<a href="activities.html" class="btn btn--g">View All Activities →</a>
+<a href="donate-indian.html" class="btn btn--p" style="margin-left:.5rem">Support Our Work</a>
+</div> -->
+
+</div>
+<div id="site-footer"></div>
+
+<script src="js/sheet-loader.js"></script>
+<script src="js/common.js"></script>
+
+<script>
+onAllSheetsLoaded(function(){
+  if(!ACTIVITY_REPORTS || ACTIVITY_REPORTS.length === 0) return;
+
+  // Group by month+year
+  var months = [];
+  var monthMap = {};
+  for(var i = 0; i < ACTIVITY_REPORTS.length; i++){
+    var r = ACTIVITY_REPORTS[i];
+    var key = r.month + ' ' + r.year;
+    if(!monthMap[key]){
+      monthMap[key] = {label:key, events:[]};
+      months.push(monthMap[key]);
+    }
+    monthMap[key].events.push(r);
+  }
+
+  // Reverse so newest month is first
+  months.reverse();
+
+  // Calculate aggregate stats
+  var totalDevotees = 0;
+  var totalPatients = 0;
+  var totalYouth = 0;
+  var totalRetreats = 0;
+  for(var i = 0; i < ACTIVITY_REPORTS.length; i++){
+    var s = ACTIVITY_REPORTS[i].stat || '';
+    var num = parseInt(s.replace(/[^0-9]/g,'')) || 0;
+    var ev = ACTIVITY_REPORTS[i].event.toLowerCase();
+    if(ev.indexOf('discourse') > -1) totalDevotees += num;
+    else if(ev.indexOf('medical') > -1) totalPatients += num;
+    else if(ev.indexOf('youth') > -1) totalYouth += num;
+    else if(ev.indexOf('retreat') > -1) totalRetreats += num;
+  }
+
+  // Render impact bar
+  var bar = document.getElementById('impactBar');
+  if(bar){
+    var stats = [
+      {num:totalDevotees.toLocaleString('en-IN'),label:'Devotees at Discourses'},
+      {num:totalPatients.toLocaleString('en-IN'),label:'Patients Treated'},
+      {num:totalYouth.toLocaleString('en-IN')+'+',label:'Youth Engaged'},
+      {num:totalRetreats.toLocaleString('en-IN'),label:'Retreat Participants'},
+      {num:months.length,label:'Months Reported'}
+    ];
+    var html='';
+    for(var i=0;i<stats.length;i++){
+      html+='<div style="background:var(--white);padding:1.2rem;text-align:center">';
+      html+='<div style="font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--saffron)">'+stats[i].num+'</div>';
+      html+='<div style="font-size:.62rem;color:var(--earth-light);letter-spacing:.05em;text-transform:uppercase;margin-top:.15rem">'+stats[i].label+'</div>';
+      html+='</div>';
+    }
+    bar.innerHTML = html;
+  }
+
+  // Render accordion
+  var acc = document.getElementById('reportAccordion');
+  if(!acc) return;
+
+  var html = '';
+  for(var m = 0; m < months.length; m++){
+    var month = months[m];
+    var isFirst = (m === 0); // Latest month open by default
+
+    // Month header with event count
+    html += '<div class="report-month" style="margin-bottom:1rem">';
+    html += '<button class="report-toggle" data-open="'+(isFirst?'true':'false')+'" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;background:var(--white);border:1px solid rgba(212,168,84,0.25);border-radius:14px;cursor:pointer;transition:all .3s;box-shadow:0 2px 10px var(--shadow)">';
+    html += '<div style="display:flex;align-items:center;gap:.8rem">';
+    html += '<span style="font-size:1.3rem">📅</span>';
+    html += '<div style="text-align:left">';
+    html += '<div style="font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--ink)">'+month.label+'</div>';
+    html += '<div style="font-size:.68rem;color:var(--earth-light);margin-top:.1rem">'+month.events.length+' activities reported</div>';
+    html += '</div></div>';
+    html += '<span class="report-arrow" style="font-size:1.2rem;color:var(--saffron);transition:transform .3s">'+(isFirst?'▼':'▶')+'</span>';
+    html += '</button>';
+
+    // Events panel
+    html += '<div class="report-panel" style="'+(isFirst?'':'display:none;')+'padding:.5rem 0">';
+
+    for(var e = 0; e < month.events.length; e++){
+      var ev = month.events[e];
+
+      // Pick icon based on event type
+      var icon = '📋';
+      var evLower = ev.event.toLowerCase();
+      if(evLower.indexOf('discourse') > -1) icon = '📖';
+      else if(evLower.indexOf('retreat') > -1) icon = '🏕️';
+      else if(evLower.indexOf('relief') > -1 || evLower.indexOf('welfare') > -1) icon = '🤝';
+      else if(evLower.indexOf('medical') > -1) icon = '🏥';
+      else if(evLower.indexOf('youth') > -1) icon = '👨‍🎓';
+      else if(evLower.indexOf('children') > -1) icon = '👦';
+      else if(evLower.indexOf('devotional') > -1 || evLower.indexOf('bhajan') > -1) icon = '🎵';
+      else if(evLower.indexOf('puja') > -1 || evLower.indexOf('tithi') > -1 || evLower.indexOf('celebration') > -1 || evLower.indexOf('shiva') > -1 || evLower.indexOf('christmas') > -1 || evLower.indexOf('kalpataru') > -1) icon = '🪔';
+      else if(evLower.indexOf('scholarship') > -1 || evLower.indexOf('education') > -1) icon = '📚';
+      else if(evLower.indexOf('visit') > -1) icon = '🙏';
+      else if(evLower.indexOf('convention') > -1) icon = '🎤';
+
+      html += '<div style="background:var(--cream);border-radius:12px;padding:1rem 1.2rem;margin-top:.5rem;border-left:4px solid var(--saffron);display:flex;gap:1rem;align-items:flex-start">';
+      html += '<span style="font-size:1.3rem;flex-shrink:0;margin-top:.1rem">'+icon+'</span>';
+      html += '<div style="flex:1;min-width:0">';
+      html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;flex-wrap:wrap">';
+      html += '<h3 style="font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--ink);margin:0">'+ev.event+'</h3>';
+      if(ev.stat){
+        html += '<span style="background:var(--saffron);color:var(--white);font-size:.58rem;font-weight:700;padding:.15rem .5rem;border-radius:100px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;flex-shrink:0">'+ev.stat+'</span>';
+      }
+      html += '</div>';
+      html += '<p style="font-size:.82rem;color:var(--earth-light);line-height:1.6;margin:.3rem 0 0">'+ev.description+'</p>';
+      html += '</div></div>';
+    }
+
+    html += '</div></div>';
+  }
+
+  acc.innerHTML = html;
+
+  // Accordion toggle
+  acc.addEventListener('click', function(e){
+    var btn = e.target.closest('.report-toggle');
+    if(!btn) return;
+    var panel = btn.nextElementSibling;
+    var arrow = btn.querySelector('.report-arrow');
+    var isOpen = btn.getAttribute('data-open') === 'true';
+
+    if(isOpen){
+      panel.style.display = 'none';
+      arrow.textContent = '▶';
+      btn.setAttribute('data-open','false');
+    } else {
+      panel.style.display = 'block';
+      arrow.textContent = '▼';
+      btn.setAttribute('data-open','true');
+    }
+  });
+
+  // Re-trigger reveal
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('vis') });
+  },{threshold:0.1});
+  acc.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el) });
+});
+</script>
+
+</body></html>

@@ -1,12 +1,12 @@
 // ===== SCRIPTURE CHIPS (static data, runs immediately) =====
 var scrips=[
-{day:'Sun',name:'Bhagavad Gita',desc:'The eternal dialogue between Sri Krishna and Arjuna — on duty, devotion, and the path to liberation. The foundational text of the Ramakrishna Order.',tag:'Sunday',icon:'📖',source:'Vyasa'},
+{day:'Sun',name:'Bhagavad Gita',desc:'The eternal dialogue between Sri Krishna and Arjuna  -  on duty, devotion, and the path to liberation. The foundational text of the Ramakrishna Order.',tag:'Sunday',icon:'📖',source:'Vyasa'},
 {day:'Mon',name:'Letters of Swamiji',desc:'Practical spirituality, organizational wisdom, and fiery inspiration from the letters of Swami Vivekananda to disciples and friends.',tag:'Monday',icon:'✉️',source:'Swami Vivekananda'},
-{day:'Tue',name:'Sri Maa\'s Life',desc:'The Holy Mother Sri Sarada Devi — her extraordinary life of patience, unconditional love, and spiritual power.',tag:'Tuesday',icon:'🙏',source:'Swami Gambhirananda'},
-{day:'Wed',name:'Kathamrita',desc:'Sri Sri Ramakrishna Kathamrita — the recorded conversations of the Master at Dakshineshwar, as noted by Mahendranath Gupta (M).',tag:'Wednesday',icon:'📜',source:'Mahendranath Gupta'},
-{day:'Thu',name:'Naradiya Bhakti',desc:'Sage Narada\'s aphorisms on supreme devotion — the nature of divine love and the path to attain it.',tag:'Thursday',icon:'💎',source:'Sage Narada'},
-{day:'Fri',name:'Lila Prasanga',desc:'Sri Ramakrishna — the Great Master. The authoritative biography by Swami Saradananda, a direct disciple.',tag:'Friday',icon:'📕',source:'Swami Saradananda'},
-{day:'Sat',name:'Kathamrita / Gita',desc:'Alternating between the Gospel and the Gita — devotional and philosophical inquiry in harmony.',tag:'Saturday',icon:'🕉️',source:'Alternating'}
+{day:'Tue',name:'Sri Maa\'s Life',desc:'The Holy Mother Sri Sarada Devi  -  her extraordinary life of patience, unconditional love, and spiritual power.',tag:'Tuesday',icon:'🙏',source:'Swami Gambhirananda'},
+{day:'Wed',name:'Kathamrita',desc:'Sri Sri Ramakrishna Kathamrita  -  the recorded conversations of the Master at Dakshineshwar, as noted by Mahendranath Gupta (M).',tag:'Wednesday',icon:'📜',source:'Mahendranath Gupta'},
+{day:'Thu',name:'Naradiya Bhakti',desc:'Sage Narada\'s aphorisms on supreme devotion  -  the nature of divine love and the path to attain it.',tag:'Thursday',icon:'💎',source:'Sage Narada'},
+{day:'Fri',name:'Lila Prasanga',desc:'Sri Ramakrishna  -  the Great Master. The authoritative biography by Swami Saradananda, a direct disciple.',tag:'Friday',icon:'📕',source:'Swami Saradananda'},
+{day:'Sat',name:'Kathamrita / Gita',desc:'Alternating between the Gospel and the Gita  -  devotional and philosophical inquiry in harmony.',tag:'Saturday',icon:'🕉️',source:'Alternating'}
 ];
 
 var st=document.getElementById('scripTrack');
@@ -96,7 +96,7 @@ onAllSheetsLoaded(function(){
     var idx = dayOfYear % SPIRITUAL_QUOTES.length;
     var q = SPIRITUAL_QUOTES[idx];
     quoteEl.textContent = q.text;
-    attrEl.textContent = '— ' + q.author;
+    attrEl.textContent = ' -  ' + q.author;
   }
 
   // ----- TODAY AT THE MATH -----
@@ -332,7 +332,7 @@ setTimeout(function(){
     var quoteEl = document.getElementById('dailyQuote');
     if(quoteEl && !quoteEl.textContent){
       quoteEl.textContent = 'The world is the great gymnasium where we come to make ourselves strong.';
-      document.getElementById('dailyQuoteAttr').textContent = '— Swami Vivekananda';
+      document.getElementById('dailyQuoteAttr').textContent = ' -  Swami Vivekananda';
     }
   }
 }, 3000);
