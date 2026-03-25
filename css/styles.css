@@ -401,11 +401,9 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}button{fon
 }
 
 @media(max-width:768px){
+  [style*="grid-template-columns:1fr 1fr 1fr"],
   [style*="grid-template-columns: 1fr 1fr 1fr"],
-  [style*="grid-template-columns:1fr 1fr 1fr"]{grid-template-columns:1fr!important}
-}
-
-@media(max-width:768px){
   [style*="grid-template-columns:repeat(3,1fr)"],
   [style*="grid-template-columns: repeat(3,1fr)"]{grid-template-columns:1fr!important}
+  #impactBar{grid-template-columns:repeat(2,1fr)!important}
 }

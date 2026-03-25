@@ -13,12 +13,12 @@
 <div style="position:relative">
 <div class="breadcrumb" style="color:rgba(240,221,184,0.4)"><a href="index.html" style="color:var(--saffron)">Home</a> / <a href="activities.html" style="color:var(--saffron)">Activities</a> / Reports</div>
 <h1 style="font-family:var(--serif);font-size:clamp(2rem,5vw,3.2rem);font-weight:300;color:var(--cream);margin-top:.6rem">Activity <em style="color:var(--gold);font-weight:400">Reports</em></h1>
-<p style="font-size:1rem;color:rgba(240,221,184,0.55);max-width:500px;margin:.6rem auto 0">A transparent record of the Math's work  -  month by month.</p>
+<p style="font-size:1rem;color:rgba(240,221,184,0.55);max-width:500px;margin:.6rem auto .6rem">A transparent record of the Math's work  -  month by month.</p>
 </div>
 </div>
 
 <!-- IMPACT STATS BAR -->
-<div id="impactBar" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:var(--gold-light);margin:0 clamp(1rem,4vw,4rem);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px var(--shadow);position:relative;z-index:2;margin-top:-2rem">
+<div id="impactBar" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gold-light);margin:0 clamp(1rem,4vw,4rem);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px var(--shadow);position:relative;z-index:2;margin-top:-2rem">
 </div>
 
 <!-- MONTH ACCORDION -->
@@ -86,7 +86,7 @@ onAllSheetsLoaded(function(){
       {num:totalPatients.toLocaleString('en-IN'),label:'Patients Treated'},
       {num:totalYouth.toLocaleString('en-IN')+'+',label:'Youth Engaged'},
       {num:totalRetreats.toLocaleString('en-IN'),label:'Retreat Participants'},
-      {num:months.length,label:'Months Reported'}
+      //{num:months.length,label:'Months Reported'}
     ];
     var html='';
     for(var i=0;i<stats.length;i++){
