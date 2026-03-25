@@ -1,0 +1,4 @@
+cd C:\Git Projects\rkmdk\images\photoGallery
+magick mogrify -path output -resize 1200x -quality 75 -format webp *.jpg
+
+Change 1200 to width needed
