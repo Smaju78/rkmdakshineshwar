@@ -27,6 +27,10 @@
 <div id="impactBar" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--gold-light);margin:0 clamp(1rem,4vw,4rem);border-radius:14px;overflow:hidden;box-shadow:0 4px 24px var(--shadow);position:relative;z-index:2;margin-top:-2rem">
 </div>
 
+<!-- FILTERS -->
+<div style="display:flex;justify-content:center;gap:.8rem;margin-top:1.5rem;padding:0 1rem;flex-wrap:wrap" id="reportFilters">
+</div>
+
 <!-- MONTH ACCORDION -->
 <div class="sec sec--warm" style="max-width: 1300px; margin: 0 auto; padding: 2rem 1rem;">
 <div id="reportAccordion">
@@ -53,27 +57,36 @@
 onAllSheetsLoaded(function(){
   if(!ACTIVITY_REPORTS || ACTIVITY_REPORTS.length === 0) return;
 
-  // Group by month+year
+  // ===== GROUP BY MONTH+YEAR =====
   var months = [];
   var monthMap = {};
+  var yearsSet = {};
+  var monthOrder = {January:1,February:2,March:3,April:4,May:5,June:6,July:7,August:8,September:9,October:10,November:11,December:12};
+
   for(var i = 0; i < ACTIVITY_REPORTS.length; i++){
     var r = ACTIVITY_REPORTS[i];
     var key = r.month + ' ' + r.year;
+    yearsSet[r.year] = true;
     if(!monthMap[key]){
-      monthMap[key] = {label:key, events:[]};
+      monthMap[key] = {label:key, month:r.month, year:r.year, events:[]};
       months.push(monthMap[key]);
     }
     monthMap[key].events.push(r);
   }
 
-  // Reverse so newest month is first
-  months.reverse();
+  // Sort: newest first
+  months.sort(function(a,b){
+    if(a.year !== b.year) return parseInt(b.year) - parseInt(a.year);
+    return (monthOrder[b.month]||0) - (monthOrder[a.month]||0);
+  });
 
-  // Calculate aggregate stats
-  var totalDevotees = 0;
-  var totalPatients = 0;
-  var totalYouth = 0;
-  var totalRetreats = 0;
+  var years = Object.keys(yearsSet).sort().reverse();
+  var currentYear = new Date().getFullYear().toString();
+  var activeYear = years.indexOf(currentYear) > -1 ? currentYear : years[0];
+  var activeMonth = 'all';
+
+  // ===== IMPACT STATS (always from full data) =====
+  var totalDevotees = 0, totalPatients = 0, totalYouth = 0, totalRetreats = 0;
   for(var i = 0; i < ACTIVITY_REPORTS.length; i++){
     var s = ACTIVITY_REPORTS[i].stat || '';
     var num = parseInt(s.replace(/[^0-9]/g,'')) || 0;
@@ -84,15 +97,13 @@ onAllSheetsLoaded(function(){
     else if(ev.indexOf('retreat') > -1) totalRetreats += num;
   }
 
-  // Render impact bar
   var bar = document.getElementById('impactBar');
   if(bar){
     var stats = [
       {num:totalDevotees.toLocaleString('en-IN'),label:'Devotees at Discourses'},
       {num:totalPatients.toLocaleString('en-IN'),label:'Patients Treated'},
       {num:totalYouth.toLocaleString('en-IN')+'+',label:'Youth Engaged'},
-      {num:totalRetreats.toLocaleString('en-IN'),label:'Retreat Participants'},
-      //{num:months.length,label:'Months Reported'}
+      {num:totalRetreats.toLocaleString('en-IN'),label:'Retreat Participants'}
     ];
     var html='';
     for(var i=0;i<stats.length;i++){
@@ -104,74 +115,151 @@ onAllSheetsLoaded(function(){
     bar.innerHTML = html;
   }
 
-  // Render accordion
-  var acc = document.getElementById('reportAccordion');
-  if(!acc) return;
+  // ===== RENDER FILTERS =====
+  var filtersDiv = document.getElementById('reportFilters');
 
-  var html = '';
-  for(var m = 0; m < months.length; m++){
-    var month = months[m];
-    var isFirst = (m === 0); // Latest month open by default
+  function renderFilters(){
+  // Get months available for selected year
+    var monthsInYear = [];
+    for(var i = 0; i < months.length; i++){
+      if(months[i].year === activeYear) monthsInYear.push(months[i].month);
+    }
 
-    // Month header with event count
-    html += '<div class="report-month" style="margin-bottom:1rem">';
-    html += '<button class="report-toggle" data-open="'+(isFirst?'true':'false')+'" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;background:var(--white);border:1px solid rgba(212,168,84,0.25);border-radius:14px;cursor:pointer;transition:all .3s;box-shadow:0 2px 10px var(--shadow)">';
-    html += '<div style="display:flex;align-items:center;gap:.8rem">';
-    html += '<span style="font-size:1.3rem">🗓️</span>';
-    html += '<div style="text-align:left">';
-    html += '<div style="font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--ink)">'+month.label+'</div>';
-    html += '<div style="font-size:.68rem;color:var(--earth-light);margin-top:.1rem">'+month.events.length+' activities reported</div>';
-    html += '</div></div>';
-    html += '<span class="report-arrow" style="font-size:1.2rem;color:var(--saffron);transition:transform .3s">'+(isFirst?'▼':'▶')+'</span>';
-    html += '</button>';
+    var html = '';
 
-    // Events panel
-    html += '<div class="report-panel" style="'+(isFirst?'':'display:none;')+'padding:.5rem 0">';
+    // Year dropdown
+    html += '<div style="display:flex;align-items:center;gap:.4rem">';
+    html += '<label style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--saffron)">Year</label>';
+    html += '<select id="yearSelect" style="padding:.5rem 2rem .5rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.85rem;font-family:var(--sans);color:var(--ink);background:var(--white);outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url(\'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22%235C4A3A%22><path d=%22M7 10l5 5 5-5z%22/></svg>\');background-repeat:no-repeat;background-position:right .6rem center">';
+    for(var i = 0; i < years.length; i++){
+      html += '<option value="'+years[i]+'"'+(years[i]===activeYear?' selected':'')+'>'+years[i]+'</option>';
+    }
+    html += '</select></div>';
 
-    for(var e = 0; e < month.events.length; e++){
-      var ev = month.events[e];
+    // Month dropdown
+    html += '<div style="display:flex;align-items:center;gap:.4rem">';
+    html += '<label style="font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--saffron)">Month</label>';
+    html += '<select id="monthSelect" style="padding:.5rem 2rem .5rem .8rem;border:1.5px solid rgba(212,168,84,0.3);border-radius:10px;font-size:.85rem;font-family:var(--sans);color:var(--ink);background:var(--white);outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url(\'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%2212%22 viewBox=%220 0 24 24%22 fill=%22%235C4A3A%22><path d=%22M7 10l5 5 5-5z%22/></svg>\');background-repeat:no-repeat;background-position:right .6rem center">';
+    html += '<option value="all"'+(activeMonth==='all'?' selected':'')+'>All Months</option>';
+    for(var i = 0; i < monthsInYear.length; i++){
+      html += '<option value="'+monthsInYear[i]+'"'+(monthsInYear[i]===activeMonth?' selected':'')+'>'+monthsInYear[i]+'</option>';
+    }
+    html += '</select></div>';
 
-      // Pick icon based on event type
-      var icon = '📋';
-      var evLower = ev.event.toLowerCase();
-      if(evLower.indexOf('discourse') > -1) icon = '📖';
-      else if(evLower.indexOf('retreat') > -1) icon = '🏕️';
-      else if(evLower.indexOf('relief') > -1 || evLower.indexOf('welfare') > -1) icon = '🤝';
-      else if(evLower.indexOf('medical') > -1) icon = '🏥';
-      else if(evLower.indexOf('youth') > -1) icon = '👨‍🎓';
-      else if(evLower.indexOf('children') > -1) icon = '👦';
-      else if(evLower.indexOf('devotional') > -1 || evLower.indexOf('bhajan') > -1) icon = '🎵';
-      else if(evLower.indexOf('puja') > -1 || evLower.indexOf('tithi') > -1 || evLower.indexOf('celebration') > -1 || evLower.indexOf('shiva') > -1 || evLower.indexOf('christmas') > -1 || evLower.indexOf('kalpataru') > -1) icon = '🪔';
-      else if(evLower.indexOf('scholarship') > -1 || evLower.indexOf('education') > -1) icon = '📚';
-      else if(evLower.indexOf('visit') > -1) icon = '🙏';
-      else if(evLower.indexOf('convention') > -1) icon = '🎤';
+    filtersDiv.innerHTML = html;
 
-      html += '<div style="background:var(--cream);border-radius:12px;padding:1rem 1.2rem;margin-top:.5rem;border-left:4px solid var(--saffron);display:flex;gap:1rem;align-items:flex-start">';
-      html += '<span style="font-size:1.3rem;flex-shrink:0;margin-top:.1rem">'+icon+'</span>';
-      html += '<div style="flex:1;min-width:0">';
-      html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;flex-wrap:wrap">';
-      html += '<h3 style="font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--ink);margin:0">'+ev.event+'</h3>';
-      if(ev.stat){
-        html += '<span style="background:var(--saffron);color:var(--white);font-size:.58rem;font-weight:700;padding:.15rem .5rem;border-radius:100px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;flex-shrink:0">'+ev.stat+'</span>';
+    // Attach change listeners
+    document.getElementById('yearSelect').addEventListener('change', function(){
+      activeYear = this.value;
+      activeMonth = 'all';
+      renderFilters();
+      renderAccordion();
+    });
+
+    document.getElementById('monthSelect').addEventListener('change', function(){
+      activeMonth = this.value;
+      renderAccordion();
+    });
+  }
+
+  // ===== RENDER ACCORDION =====
+  function renderAccordion(){
+    var filtered = [];
+    for(var i = 0; i < months.length; i++){
+      var m = months[i];
+      if(m.year !== activeYear) continue;
+      if(activeMonth !== 'all' && m.month !== activeMonth) continue;
+      filtered.push(m);
+    }
+
+    var acc = document.getElementById('reportAccordion');
+    if(!acc) return;
+
+    if(filtered.length === 0){
+      acc.innerHTML = '<p style="color:var(--earth-light);font-size:.9rem;text-align:center;padding:2rem">No reports available for this period.</p>';
+      return;
+    }
+
+    var html = '';
+    for(var mi = 0; mi < filtered.length; mi++){
+      var month = filtered[mi];
+      var isFirst = (mi === 0);
+
+      html += '<div class="report-month" style="margin-bottom:1rem">';
+      html += '<button class="report-toggle" data-open="'+(isFirst?'true':'false')+'" style="width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;background:var(--white);border:1px solid rgba(212,168,84,0.25);border-radius:14px;cursor:pointer;transition:all .3s;box-shadow:0 2px 10px var(--shadow)">';
+      html += '<div style="display:flex;align-items:center;gap:.8rem">';
+      html += '<span style="display:inline-block;width:1.3rem;height:1.3rem;border:2px solid var(--saffron);border-radius:4px;border-top:4px solid var(--saffron);flex-shrink:0"></span>';
+      html += '<div style="text-align:left">';
+      html += '<div style="font-family:var(--serif);font-size:1.2rem;font-weight:600;color:var(--ink)">'+month.label+'</div>';
+      html += '<div style="font-size:.68rem;color:var(--earth-light);margin-top:.1rem">'+month.events.length+' activities reported</div>';
+      html += '</div></div>';
+      html += '<span class="report-arrow" style="font-size:1.2rem;color:var(--saffron);transition:transform .3s">'+(isFirst?'▼':'▶')+'</span>';
+      html += '</button>';
+
+      html += '<div class="report-panel" style="'+(isFirst?'':'display:none;')+'padding:.5rem 0">';
+
+      for(var e = 0; e < month.events.length; e++){
+        var ev = month.events[e];
+        var icon = '📋';
+        var evLower = ev.event.toLowerCase();
+        if(evLower.indexOf('discourse') > -1) icon = '📖';
+        else if(evLower.indexOf('retreat') > -1) icon = '🏕️';
+        else if(evLower.indexOf('relief') > -1 || evLower.indexOf('welfare') > -1) icon = '🤝';
+        else if(evLower.indexOf('medical') > -1) icon = '🏥';
+        else if(evLower.indexOf('youth') > -1) icon = '👨‍🎓';
+        else if(evLower.indexOf('children') > -1) icon = '👦';
+        else if(evLower.indexOf('devotional') > -1 || evLower.indexOf('song') > -1) icon = '🎵';
+        else if(evLower.indexOf('puja') > -1 || evLower.indexOf('tithi') > -1 || evLower.indexOf('celebration') > -1 || evLower.indexOf('shiva') > -1 || evLower.indexOf('christmas') > -1 || evLower.indexOf('kalpataru') > -1) icon = '🪔';
+        else if(evLower.indexOf('scholarship') > -1 || evLower.indexOf('education') > -1) icon = '📚';
+        else if(evLower.indexOf('visit') > -1) icon = '🙏';
+        else if(evLower.indexOf('convention') > -1) icon = '🎤';
+
+        html += '<div style="background:var(--white);border-radius:12px;border:1px solid rgba(212,168,84,0.15);box-shadow:0 1px 6px var(--shadow);padding:1rem 1.2rem;margin-top:.5rem;border-left:4px solid var(--saffron);display:flex;gap:1rem;align-items:flex-start">';
+        html += '<span style="font-size:1.3rem;flex-shrink:0;margin-top:.1rem">'+icon+'</span>';
+        html += '<div style="flex:1;min-width:0">';
+        html += '<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem;flex-wrap:wrap">';
+        html += '<h3 style="font-family:var(--serif);font-size:1rem;font-weight:600;color:var(--ink);margin:0">'+ev.event+'</h3>';
+        if(ev.stat){
+          html += '<span style="background:var(--saffron);color:var(--white);font-size:.58rem;font-weight:700;padding:.15rem .5rem;border-radius:100px;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;flex-shrink:0">'+ev.stat+'</span>';
+        }
+        html += '</div>';
+        html += '<p style="font-size:.82rem;color:var(--earth-light);line-height:1.6;margin:.3rem 0 0">'+ev.description+'</p>';
+        html += '</div></div>';
       }
-      html += '</div>';
-      html += '<p style="font-size:.82rem;color:var(--earth-light);line-height:1.6;margin:.3rem 0 0">'+ev.description+'</p>';
+
       html += '</div></div>';
     }
 
-    html += '</div></div>';
+    acc.innerHTML = html;
   }
 
-  acc.innerHTML = html;
+  // ===== FILTER EVENT HANDLERS =====
+  filtersDiv.addEventListener('click', function(e){
+    var btn = e.target.closest('.filter-btn');
+    if(!btn) return;
 
-  // Accordion toggle
-  acc.addEventListener('click', function(e){
+    if(btn.hasAttribute('data-year')){
+      activeYear = btn.getAttribute('data-year');
+      activeMonth = 'all'; // reset month when year changes
+      renderFilters();
+      renderAccordion();
+    } else if(btn.hasAttribute('data-month')){
+      activeMonth = btn.getAttribute('data-month');
+      // Update only month button states
+      var monthBtns = filtersDiv.querySelectorAll('[data-month]');
+      monthBtns.forEach(function(b){ b.classList.remove('active') });
+      btn.classList.add('active');
+      renderAccordion();
+    }
+  });
+
+  // ===== ACCORDION TOGGLE (delegated) =====
+  document.getElementById('reportAccordion').addEventListener('click', function(e){
     var btn = e.target.closest('.report-toggle');
     if(!btn) return;
     var panel = btn.nextElementSibling;
     var arrow = btn.querySelector('.report-arrow');
     var isOpen = btn.getAttribute('data-open') === 'true';
-
     if(isOpen){
       panel.style.display = 'none';
       arrow.textContent = '▶';
@@ -183,11 +271,9 @@ onAllSheetsLoaded(function(){
     }
   });
 
-  // Re-trigger reveal
-  var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('vis') });
-  },{threshold:0.1});
-  acc.querySelectorAll('.reveal').forEach(function(el){ obs.observe(el) });
+  // ===== INITIAL RENDER =====
+  renderFilters();
+  renderAccordion();
 });
 </script>
 
