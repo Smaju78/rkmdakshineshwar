@@ -47,11 +47,11 @@
 </section>
 
 <!-- CURRENT MONTH IMAGE -->
-<section class="sec sec--cream">
+<section class="sec sec--cream" id="monthlyImageSection" style="display:none">
 <div class="reveal" style="text-align:center;max-width:700px;margin:0 auto">
-<div class="eyebrow">March 2026</div><h2 class="stitle">Current Month Schedule</h2>
-<img src="https://dakshineshwar.rkmm.org/Image%202026-02-28%20at%209.13.26%20AM.jpeg" alt="March 2026 Programs" style="border-radius:16px;box-shadow:0 6px 30px var(--shadow);margin-top:1.5rem">
-<div style="margin-top:2rem"><a href="index.html" class="btn btn--g">← Back to Home</a></div>
+<div class="eyebrow" id="monthlyImageLabel"></div>
+<h2 class="stitle">Current Month Schedule</h2>
+<img id="monthlyImage" alt="" style="border-radius:16px;box-shadow:0 6px 30px var(--shadow);margin-top:1.5rem">
 </div>
 </section>
 
@@ -102,12 +102,11 @@ onAllSheetsLoaded(function(){
       }
       // Show worship timings
       if(worshipMeta || aartiMeta){
-        html += '<div style="margin-top:.6rem;padding-top:.5rem;border-top:1px solid rgba(212,168,84,0.15);font-size:.72rem;color:var(--earth-light)">';
-        if(worshipMeta) html += '🌅 ' + worshipMeta;
-        if(worshipMeta && aartiMeta) html += ' &nbsp;·&nbsp; ';
-        if(aartiMeta) html += '🪔 ' + aartiMeta;
+        html += '<div style="margin-top:.7rem;padding-top:.6rem;border-top:1px solid rgba(212,168,84,0.18);display:flex;gap:.7rem;flex-wrap:wrap">';
+        if(worshipMeta) html += '<span style="display:inline-flex;align-items:center;gap:.3rem;background:rgba(212,168,84,0.10);padding:.25rem .6rem;border-radius:6px;font-size:.75rem;color:#d4a854;font-weight:500"><b>Mangal Aarti:</b> ' + worshipMeta + '</span>';
+        if(aartiMeta) html += '<span style="display:inline-flex;align-items:center;gap:.3rem;background:rgba(212,168,84,0.10);padding:.25rem .6rem;border-radius:6px;font-size:.75rem;color:#d4a854;font-weight:500"><b>Evening Aarti:</b> ' + aartiMeta + '</span>';
         html += '</div>';
-      }
+    }
       html += '</div></div>';
     }
     weekGrid.innerHTML = html;
@@ -130,7 +129,16 @@ onAllSheetsLoaded(function(){
     for(var i = 0; i < UPCOMING_PROGRAMS.length; i++){
       var p = UPCOMING_PROGRAMS[i];
       // Skip past dated events
+      // Skip past dated events
       if(p.date && p.date < todayStr) continue;
+
+      // Skip events beyond next month
+      if(p.date){
+        var now2 = new Date();
+        var nextMonth = new Date(now2.getFullYear(), now2.getMonth() + 2, 0); // last day of next month
+        var nextMonthStr = nextMonth.getFullYear() + '-' + String(nextMonth.getMonth()+1).padStart(2,'0') + '-' + String(nextMonth.getDate()).padStart(2,'0');
+        if(p.date > nextMonthStr) continue;
+      }
 
       var delay = ['d1','d2','d3'][shown % 3];
       var isEvent = !!p.date;
@@ -163,6 +171,28 @@ onAllSheetsLoaded(function(){
   }
 
 });
+</script>
+<script>
+(function(){
+  var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var now = new Date();
+  var monthName = months[now.getMonth()];
+  var year = now.getFullYear();
+  var label = monthName + ' ' + year;
+  var imgPath = 'images/programs/' + label + '.webp';
+
+  var img = new Image();
+  img.onload = function(){
+    document.getElementById('monthlyImageLabel').textContent = label;
+    document.getElementById('monthlyImage').src = imgPath;
+    document.getElementById('monthlyImage').alt = label + ' Programs';
+    document.getElementById('monthlyImageSection').style.display = 'block';
+  };
+  img.onerror = function(){
+    // Image not found — section stays hidden
+  };
+  img.src = imgPath;
+})();
 </script>
 
 </body></html>
