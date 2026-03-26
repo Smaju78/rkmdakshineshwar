@@ -26,7 +26,7 @@
 </section>
 
 <!-- UPCOMING EVENTS (dynamic) -->
-<section class="sec sec--warm">
+<section class="sec sec--warm" id="eventsSection" style="display:none">
 <div class="reveal"><div class="eyebrow">Upcoming</div><h2 class="stitle">Festivals & Events</h2><p class="sdesc">Holy days and special celebrations at the Math.</p></div>
 <div id="eventsGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;margin-top:2rem">
 <p style="color:var(--earth-light);font-size:.9rem">Loading events...</p>
@@ -159,15 +159,17 @@ onAllSheetsLoaded(function(){
     }
 
     if(shown === 0){
-      html = '<p style="color:var(--earth-light);font-size:.9rem;grid-column:1/-1;text-align:center">No upcoming events at the moment.</p>';
+    // No events — keep section hidden
+      document.getElementById('eventsSection').style.display = 'none';
+    } else {
+      eventsGrid.innerHTML = html;
+      document.getElementById('eventsSection').style.display = 'block';
+
+      var obs2 = new IntersectionObserver(function(entries){
+        entries.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('vis') });
+      },{threshold:0.1});
+      eventsGrid.querySelectorAll('.reveal').forEach(function(el){ obs2.observe(el) });
     }
-
-    eventsGrid.innerHTML = html;
-
-    var obs2 = new IntersectionObserver(function(entries){
-      entries.forEach(function(x){ if(x.isIntersecting) x.target.classList.add('vis') });
-    },{threshold:0.1});
-    eventsGrid.querySelectorAll('.reveal').forEach(function(el){ obs2.observe(el) });
   }
 
 });
